@@ -1,6 +1,6 @@
 # Backend
 
-### Initializing the node server  
+## Initializing the node server  
 `-y` : Configurations for the metadata that we need to do while `npm init` is done automatically using default values. These values are only important if you want to release a package or a library.
 
 `npm`: Node Package Manager (build tool like maven and gradle)
@@ -13,7 +13,7 @@ This creates the `package.json` file. This has all the configurations for our pr
 >[!NOTE]
 > Dependencies are packages we use in our projects. (TypeScript, Bootstrap)
 
-### Installing TypeScript
+## Installing TypeScript
 
 **TypeScript**: This is superset of JavaScript that you will be able to declare the type of variables. Similar to Java, Kotlin and Swift.
 
@@ -29,7 +29,7 @@ This will add typescript under the devDependencies section of the `package.json`
 
 This also creates a node_modules directory and a `package-lock.json` file. The node_modules directory contains the packages that we installed.
 
-### TypeScript Configuration File
+## TypeScript Configuration File
 Every typescript project requires a typescript configuration file. This contains the information on how typescript should behave.
 
 `-tsc`: Typescript Compiler
@@ -41,7 +41,7 @@ npx tsc --init
 
 This creates a `tsconfig.json` file. 
 
-### Installing Express
+## Installing Express
 
 **Express** : Express is the framework that allows us to make the server. This allows us to write server code, end points etc.
 
@@ -56,7 +56,7 @@ We don't use `--save-dev` because Express is a normal dependency that is need in
 
 This will add express under the dependencies section of the `package.json` file
 
-### Installing Types for Express
+## Installing Types for Express
 
 Because we are writing the code in typescript we need to install the package that consists the types, so that our code works properly and typescript understand the types.
 
@@ -70,7 +70,7 @@ This will add typescript under the devDependencies section of the `package.json`
 > If you want to install a specific version of a dependency we can use a command like `npm install express@4.18.2` 
 
 
-### Starting a Express server written in Typescript
+## Starting a Express server written in Typescript
 
 Normally, if we are using a javascript file we just need to use a command like following.
 ```sh
@@ -89,7 +89,7 @@ This will compile the `server.ts` file and create a new `server.js`. Now, we can
 ```sh
 node server.js
 ```
-### Organizing the code
+## Organizing the code
 
 1. Adding all the source code into a `src` directory. Every configuration files stays outside of the `src` directory.
 2. We need to tell typescript compiler to add the generated javascript files into its own folder. (dist : distribution)
@@ -111,7 +111,7 @@ node dist/server.js
 ```
 
 
-### Making the running the project easier using scripts and dependencies
+## Making running the project easier using scripts and dependencies
 
 We are installing nodemon and ts-node as a dev dependency. `-D` is same as `--save-dev`.
 
