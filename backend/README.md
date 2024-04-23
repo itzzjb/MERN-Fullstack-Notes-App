@@ -56,6 +56,19 @@ We don't use `--save-dev` because Express is a normal dependency that is need in
 
 This will add express under the dependencies section of the `package.json` file
 
+### Installing Types for Express
+
+Because we are writing the code in typescript we need to install the package that consists the types, so that our code works properly and typescript understand the types.
+
+`--save-dev`: Installs the package as a devDependency.
+```sh
+npm i --save-dev @types/express
+```
+This will add typescript under the devDependencies section of the `package.json` file
+
+>[!TIP]
+> If you want to install a specific version of a dependency we can use a command like `npm install express@4.18.2` 
+
 
 
 
