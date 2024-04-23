@@ -21,6 +21,12 @@
 >[!NOTE]
 > NodeJs allows JavaScript code to run in a server environment. Normally, JavaScript is meant as a language for web browsers. Because of NodeJs we can write our backend using JavaScript too.
 
+**npm**: Node Package Manager (build tool like maven and gradle)
+
+>[!IMPORTANT]
+> Front-end shouldn't contain critical details (users can inspect the code). It should only be a user interface to communicate with the back-end. Back-end is like a black-box for users. They can't see what's happening. It runs in a different machine, not in the browser. The front-end only can communicate with the back-end using Requests and Responses. (HTTP)
+
+
 
 
 
