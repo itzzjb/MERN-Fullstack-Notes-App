@@ -70,6 +70,54 @@ This will add typescript under the devDependencies section of the `package.json`
 > If you want to install a specific version of a dependency we can use a command like `npm install express@4.18.2` 
 
 
+### Starting a Express server written in Typescript
 
+Normally, if we are using a javascript file we just need to use a command like following.
+```sh
+node index.js
+```
+But here we are using typescript. The above command only work for javascript files.
+
+>[!WARNING]
+> We need to compile the typescript file into a javascript
+
+```sh
+npx tsc
+```
+
+This will compile the `server.ts` file and create a new `server.js`. Now, we can start the server using javascript file.
+```sh
+node server.js
+```
+### Organizing the code
+
+1. Adding all the source code into a `src` directory. Every configuration files stays outside of the `src` directory.
+2. We need to tell typescript compiler to add the generated javascript files into its own folder. (dist : distribution)
+    - Uncomment the outDir key-value pair.
+    - Add the new `dist` directory as a value to to it. 
+    ```sh 
+    "outDir": "./dist",
+    ```
+
+Now, you can compile the typescript file in the `src` directory and get the resulting javascript file inside the `dist` directory.
+
+```sh
+npx tsc
+```
+```sh 
+node dist/server.js
+```
+
+### Making the running the project easier using scripts and dependencies
+
+
+
+
+
+
+
+
+
+### Added a .gitignore file 
 
 
