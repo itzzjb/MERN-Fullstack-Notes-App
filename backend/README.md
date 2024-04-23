@@ -104,20 +104,114 @@ Now, you can compile the typescript file in the `src` directory and get the resu
 ```sh
 npx tsc
 ```
+
+Now, you can run the compiled javascript file using following command.
 ```sh 
 node dist/server.js
 ```
 
+
 ### Making the running the project easier using scripts and dependencies
 
+We are installing nodemon and ts-node as a dev dependency. `-D` is same as `--save-dev`.
 
+**nodemon**: This package restarts the server whenever we do changes to the code.
+```sh
+npm i -D nodemon 
+```
 
+**ts-node**: This package automatically work with nodemon and compiles our typescript code into javascript.
+```sh
+npm i -D ts-node
+```
 
+Now, you can easily run the file without compiling the file into javascript.
+```sh
+npx nodemon src/server.ts
+```
 
+>[!IMPORTANT]
+> When using nodemon and ts-node, there won't be a compiled javascript file creation in the `dist` directory. But, we use those packages only in development. So, in the production environment there will be a compiled javascript code in the `dist` directory. So, we need to change the value of `main` in the package.json file to the compiled javascript file.
 
+```sh
+"main": "dist/server.js",
+```
 
+Now, we can use **scripts** to create short hand to commands that we are using regularly. We can add them in the script section of `package.json` file. 
+```sh
+"scripts": {
+    "start": "nodemon src/server.ts"
+},
+```
 
+>[!IMPORTANT]
+> When we are defining scripts in the `package.json` file, we don't need to put the part `npx`.
+
+Now, we can use this script to easily run the commands in terminal. You need to use `npm run` before the script name.
+```sh
+npm run start
+```
+
+Some scripts like `start` have default shorthands too.
+```sh
+npm start
+```
+
+Then, we can also download another dev dependency called **eslint**
+```sh
+npm i -D eslint
+```
+
+After installing we need to create the configuration file for eslint. We need to go through some steps in order to complete the procedure.
+```sh
+npx eslint --init
+```
+
+**eslint**: Helps us to find problems in our code. Some of them can be errors like invalid syntaxes while some of them are bad practices which we should avoid because they can cause problems later.
+
+You can use the following command to check the code and find the problems 
+
+`.` : Indicates the directory that files we are checking are in
+
+`--ext`: Indicates the files (the extensions of the files) we are checking in the directory
+```sh
+npx eslint --ext .ts
+```
+We can create a script for the above command too.
+```sh
+"scripts": {
+    "start": "nodemon src/server.ts",
+    "lint": "eslint --ext .ts"
+},
+```
+
+Now, we can use the shorthand command to run eslint
+```sh
+npm run lint
+```
+
+>[!TIP]
+> Executing eslint over the command line is still annoying. So, you install the vscode extension for eslint to make thing easy.
 
 ### Added a .gitignore file 
+
+> [!NOTE]
+> Configurations files and source code file shouldn't be added to the `.gitignore` file. Configuration must be same for every user when we are working as a team.
+
+
+`.gitignore`: The file that defines the other files and directories in our project that we don't want to commit to git.
+
+We normally push our code to github. Some folders may be just big and we don't need them so we can save space, or there can be files that may contain vulnerable information like database passwords.
+
+>[!TIP]
+> We can find default `.gitignore` files from the official repository of github for any type of application.
+
+Here are going to copy a NodeJs `.gitignore` file.
+
+We can see that directories like `node_modules` and `dist` are ignored by `.gitignore` file there.
+
+>[!IMPORTANT]
+> We don't need to worry about not pushing `node_modules` directory because all the information about the dependencies are in the package.json file and we only need to run `npm install` command in order to get the `node_modules` directory again.
+
 
 
