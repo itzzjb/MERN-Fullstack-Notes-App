@@ -193,7 +193,7 @@ npm run lint
 >[!TIP]
 > Executing eslint over the command line is still annoying. So, you install the vscode extension for eslint to make thing easy.
 
-### Added a .gitignore file 
+## Added a .gitignore file 
 
 > [!NOTE]
 > Configurations files and source code file shouldn't be added to the `.gitignore` file. Configuration must be same for every user when we are working as a team.

@@ -26,6 +26,17 @@
 >[!IMPORTANT]
 > Front-end shouldn't contain critical details (users can inspect the code). It should only be a user interface to communicate with the back-end. Back-end is like a black-box for users. They can't see what's happening. It runs in a different machine, not in the browser. The front-end only can communicate with the back-end using Requests and Responses. (HTTP)
 
+## Is this a REST API ?
+
+REST API is also a backend-server, but it fulfills certain constraints. They are usually the servers that used by many different clients. So, they follow many rules and one of them is they don't contain any state.
+
+But this server will later contains states, because the user will be able to login, and for each login there will be a session in the database, and lets the server know that this user is logged in. This is a violation of the restful constraints. 
+
+This is not a public public REST API, this is just our own backend server. This can only be used by a single client at a time.
+
+>[!TIPS]
+> We can build a public REST API using the same concepts and code used here by adding more functionalities.
+
 
 
 
