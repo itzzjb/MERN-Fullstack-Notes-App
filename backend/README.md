@@ -214,4 +214,28 @@ We can see that directories like `node_modules` and `dist` are ignored by `.giti
 > We don't need to worry about not pushing `node_modules` directory because all the information about the dependencies are in the package.json file and we only need to run `npm install` command in order to get the `node_modules` directory again.
 
 
+## Setting up the MongoDB 
+
+MongoDB is a **Schemaless** database. This doesn't have a schema than needs to be followed throughout a table in the database.
+
+>[!TIP]
+> Another example for a schemaless database is **Firebase**.
+
+You have two choices to deploy this database.
+1. Self host it on out own server
+2. Host on a hosting provider like **MongoDB Atlas**. 
+
+>[!NOTE]
+> The benefits of using hosting providers is that they take care of many thing that you would have to do it your self otherwise. (Scaling, Security Concerns, Encryption, Backups etc.) 
+> And also you would get an GUI to work with Mongodb instead of CLI.
+> One downside is we have to pay money for this in the production because we would need to scale up.
+
+We are going to use MongoBD Atlas free tier for this project. 
+
+Create a free-cluster from the official site of [MongoDb Atlas](https://www.mongodb.com)
+
+
+
+
+
 

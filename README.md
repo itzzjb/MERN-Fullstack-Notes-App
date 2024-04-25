@@ -34,8 +34,9 @@ But this server will later contains states, because the user will be able to log
 
 This is not a public public REST API, this is just our own backend server. This can only be used by a single client at a time.
 
->[!TIPS]
+>[!TIP]
 > We can build a public REST API using the same concepts and code used here by adding more functionalities.
+
 
 
 
