@@ -241,7 +241,7 @@ Create a free-cluster from the official site of [MongoDb Atlas](https://www.mong
 
 We can create the `.env` file in the `backend` directory of the application. There we can specify the database configuration (`MONGO_CONNECTION_STRING`) and the port (`PORT`).
 
-Now, we need to install the package that let's us load .env files.
+Now, we need to install the **dotenv** package that let's us load .env files.
 ```sh
 npm i dotenv
 ```
@@ -253,6 +253,16 @@ npm i mongoose
 ```
 >[!NOTE]
 > Both of the above packages are added as normal dependencies to the project. (into the dependencies section of `package.json` file)
+
+We need to ensure that the environment variables are defined. If the `MONGO_CONNECTION_STRING` is not defined server will get stopped with an error but if the `PORT` is not defined the sever will get started in a undefined port. This is a problem. 
+
+For that, we can use a package called **envalid** to manage those environment variables. This has features like errors that will stop the server if environment variables are undefined which can be helpful for us. This is a normal dependency that we need to use in the production as well.
+
+```sh
+npm i envalid
+```
+
+Now, we can create a `util` directory inside `src` directory to include utility functions. We can create a file for validating environment variables. The name doesn't matter. Here we create a file called `validateEnv.ts`.
 
 
 
