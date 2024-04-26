@@ -264,6 +264,15 @@ npm i envalid
 
 Now, we can create a `util` directory inside `src` directory to include utility functions. We can create a file for validating environment variables. The name doesn't matter. Here we create a file called `validateEnv.ts`.
 
+## Code Organization
+
+We need to separate the app part that contains the end points and the server part that contains mongoose and actually start the server. We can create another file called  `app.ts` and move the endpoint data from the `server.ts` to it.
+
+>[!IMPORTANT]
+> This allows us to test the server (everything that is included in the express app) without connecting to the real production database.
+
+
+
 
 
 

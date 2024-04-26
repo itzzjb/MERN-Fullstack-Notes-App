@@ -1,8 +1,9 @@
 // Note: ; is optional in typescript (or javascript). But it is a good practice to use it.
+// Note: When we are importing a file, we don't need to use the extension of the file
 
-// We need to import the environment variables at the very start of the file
-// Says to setup and configure .env file
-import "dotenv/config";
+// We need to import the app from app.ts
+// We need to do this in the top of out imports
+import app from "./app";
 
 // We need to validateEnv file here
 import env from "./util/validateEnv";
@@ -10,22 +11,6 @@ import env from "./util/validateEnv";
 // Importing the mongoose module
 // This is same as import "mongoose/config" but we also get a shorthand called mongoose
 import mongoose from "mongoose";
-
-// Importing express module
-// This is same as import "express/config" but we also get a shorthand called express
-import express from "express";
-
-// Creating an instance of express
-// This app will act as our server
-const app = express();
-
-// Note: Arrow functions are functions without a name
-
-// This is an endpoint HTTP get request
-app.get("/", (req, res) => {
-  // Sending a response
-  res.send("Hello World");
-});
 
 // We need to get the port from the environment variables
 // process.env is an object that contains all the environment variables
