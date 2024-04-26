@@ -3,7 +3,6 @@
 // If we have a single import we don't need to use curly braces
 // If we have multiple imports we need to use curly braces
 import { cleanEnv, port, str } from "envalid";
-// import { port, str } from "envalid/dist/validators";
 
 // We need to export the sanitized version of the environment variables from this
 // We exporting the return value of cleanEnv function

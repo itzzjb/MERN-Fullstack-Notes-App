@@ -241,6 +241,8 @@ Create a free-cluster from the official site of [MongoDb Atlas](https://www.mong
 
 We can create the `.env` file in the `backend` directory of the application. There we can specify the database configuration (`MONGO_CONNECTION_STRING`) and the port (`PORT`).
 
+We need to insert the password and the database name into the correct places of the string.
+
 Now, we need to install the **dotenv** package that let's us load .env files.
 ```sh
 npm i dotenv
@@ -271,8 +273,16 @@ We need to separate the app part that contains the end points and the server par
 >[!IMPORTANT]
 > This allows us to test the server (everything that is included in the express app) without connecting to the real production database.
 
+## Mongoose MongoDB Models
 
+When we use mongoose, we need to define models for the data that we need to put in our database. 
 
+We can create a `models` directory inside the `src` directory and create models inside of it.
+
+> [!NOTES]
+> MongoDB Atlas automatically adds id for all the datasets we insert.
+
+## Error Handling
 
 
 
