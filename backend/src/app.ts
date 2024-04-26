@@ -7,7 +7,7 @@ import "dotenv/config";
 import express from "express";
 
 // Importing the notes module
-import NoteModel from "./models/notes"
+import NoteModel from "./models/notes";
 
 // Creating an instance of express
 // This app will act as our server

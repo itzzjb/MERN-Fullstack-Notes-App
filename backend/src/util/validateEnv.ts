@@ -8,9 +8,9 @@ import { cleanEnv, port, str } from "envalid";
 // We exporting the return value of cleanEnv function
 // If we have a single export we don't need to use curly braces
 // If we have multiple exports we need to use curly braces
-export default cleanEnv (process.env, {
-    // Says that the value should be a string
-    MONGO_CONNECTION_STRING: str(),
-    // Says that the value should be a port number
-    PORT: port(),
+export default cleanEnv(process.env, {
+  // Says that the value should be a string
+  MONGO_CONNECTION_STRING: str(),
+  // Says that the value should be a port number
+  PORT: port(),
 });

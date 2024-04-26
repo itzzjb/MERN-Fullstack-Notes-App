@@ -279,7 +279,7 @@ When we use mongoose, we need to define models for the data that we need to put 
 
 We can create a `models` directory inside the `src` directory and create models inside of it.
 
-> [!NOTES]
+> [!NOTE]
 > MongoDB Atlas automatically adds id for all the datasets we insert.
 
 ## Error Handling

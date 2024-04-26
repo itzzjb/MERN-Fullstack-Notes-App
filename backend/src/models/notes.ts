@@ -1,23 +1,23 @@
-// When we use mongoose, we need to create a model for each collection in the database. 
-// This models will be used to interact with the collection. 
+// When we use mongoose, we need to create a model for each collection in the database.
+// This models will be used to interact with the collection.
 
 // Schema , InferSchemaType and model are imported from mongoose
 import { InferSchemaType, model, Schema } from "mongoose";
 
 // Create the schema for the notes collection
-// In mongodb schemas we need to start the types in uppercase letter 
-const noteSchema =  new Schema( 
-    // The fields in the schema
-    {
-    title : { type: String, required: true },
-    text : { type : String },
-    },
-    { 
+// In mongodb schemas we need to start the types in uppercase letter
+const noteSchema = new Schema(
+  // The fields in the schema
+  {
+    title: { type: String, required: true },
+    text: { type: String },
+  },
+  {
     // These are outside of the first curly braces
     // Mongoose will automatically add the following fields
     // This will add a createdAt and updatedAt fields
-    timestamps: true
-    }
+    timestamps: true,
+  }
 );
 
 // New type alias for the note schema using typescript
