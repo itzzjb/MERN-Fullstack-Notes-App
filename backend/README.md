@@ -1,5 +1,7 @@
 # Backend
 
+Refer to [npmjs](https://www.npmjs.com) Website for learn about any package.
+
 ## Initializing the node server  
 `-y` : Configurations for the metadata that we need to do while `npm init` is done automatically using default values. These values are only important if you want to release a package or a library.
 
@@ -233,6 +235,25 @@ You have two choices to deploy this database.
 We are going to use MongoBD Atlas free tier for this project. 
 
 Create a free-cluster from the official site of [MongoDb Atlas](https://www.mongodb.com)
+
+>[!IMPORTANT]
+> We can see that `.env` files are in the `.gitignore` file. So, the environment variables like database credentials won't be added to the git repository. We put configurations that depends on where we run the application in `.env` files.
+
+We can create the `.env` file in the `backend` directory of the application. There we can specify the database configuration (`MONGO_CONNECTION_STRING`) and the port (`PORT`).
+
+Now, we need to install the package that let's us load .env files.
+```sh
+npm i dotenv
+```
+
+Then we can install **mongoose**. It's gives mongodb object modelling for node.js and makes it easier to work with mongodb database.
+
+```sh
+npm i mongoose
+```
+>[!NOTE]
+> Both of the above packages are added as normal dependencies to the project. (into the dependencies section of `package.json` file)
+
 
 
 

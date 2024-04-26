@@ -1,6 +1,10 @@
-// Creating a hello world 
 // Note: ; is optional in typescript (or javascript). But it is a good practice to use it.
 
+// We need to import the environment variables at the very start of the file
+// Says to setup and configure .env file
+import "dotenv/config";
+// Importing the mongoose module
+import mongoose from "mongoose";
 // Importing express
 import express from "express";
 // Creating an instance of express
