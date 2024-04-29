@@ -16,7 +16,7 @@ export const getNotes: RequestHandler = async (req, res, next) => {
   // Our server will not crash if something goes wrong
   try {
     // Simulating an error by throwing an error
-    // throw Error("Bazinga!");
+    // throw Error("Simulated Error!");
 
     // Sending a response
     // We need to get the notes out of the database and return them
@@ -32,6 +32,33 @@ export const getNotes: RequestHandler = async (req, res, next) => {
     // next is a function that will call the next middleware
     // Middleware is a function that will be called before the endpoint
     // Following will pass the error to the error handler
+    next(error);
+  }
+};
+
+// We can a another endpoint to create a new note
+export const createNote: RequestHandler = async (req, res, next) => {
+  // We can put the following two lines outside the try catch block because they don't throw any errors
+  // We need to get the title and content from the request body
+  // We can use req.body to get the body of the request
+  // We can get the title and content from the body to separate variables
+  const title = req.body.title;
+  const text = req.body.text;
+  try {
+    // We can use the NoteModel.create() function to create the notes in the database
+    // We need to also save the note in a variable because we also need to send it to the frontend
+    // We don't need .exec() here
+    const newNote = await NoteModel.create({
+      // Creating a new note with the title and text that we got from the request body
+      title: title,
+      text: text,
+    });
+    // We need to set the http status code to 201
+    // It means created
+    // And send the note as a json object to the frontend
+    // Here we don't need to use curly braces because we notes is an object, and json knows how to convert objects into json
+    res.status(201).json(newNote);
+  } catch (error) {
     next(error);
   }
 };

@@ -14,6 +14,11 @@ import notesRoutes from "./routes/notesRoutes";
 // This app will act as our server
 const app = express();
 
+// We need to create a middleware to set up json to used in the express app
+// This should be above other middlewares (exactly here)
+// Now we can receive json data from the server and send json data to the server
+app.use(express.json());
+
 // Now we can create a middleware to parse the incoming requests
 // Any request that comes with the /api/notes will be forwarded to the notesRoutes
 app.use("/api/notes", notesRoutes);
