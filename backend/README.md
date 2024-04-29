@@ -322,4 +322,14 @@ We can create a `models` directory inside the `src` directory and create models 
 
 There can be errors like database may be down or may be we wrote some bad code etc. So, we need to handle errors otherwise our server will be down.
 
-- **Using Try Catch Blocks**: By using try catch blocks, we can catch the errors and send a responses to the frontend. Our server will not crash if something goes wrong
+**Using Try Catch Blocks**: By using try catch blocks, we can catch the errors and send a responses to the frontend. Our server will not crash if something goes wrong
+
+> [!TIP]
+> We don't need to write try catch blocks to handle errors if this is synchronous code. (That means there is no `async` and `await` in the code.). Express is smart enough to forward the error to the error handler automatically.
+
+But we don't want to repeat writing error handling part catch block for every endpoint.
+
+**Setting up an error handler**: This error handler will automatically kick in whenever an error occurs.
+
+> [!IMPORTANT]
+> We need to write the error handler below our endpoints. Because middlewares are checked in the order that we have defined them. Because we only want to get to this if an error occurs.
