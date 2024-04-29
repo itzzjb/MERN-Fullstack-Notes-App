@@ -333,3 +333,5 @@ But we don't want to repeat writing error handling part catch block for every en
 
 > [!IMPORTANT]
 > We need to write the error handler below our endpoints. Because middlewares are checked in the order that we have defined them. Because we only want to get to this if an error occurs.
+
+We can refer more about [middleware in express here](https://expressjs.com/en/guide/using-middleware.html).

@@ -44,6 +44,16 @@ app.get("/", async (req, res, next) => {
   }
 });
 
+// We can also create another middleware to create our own error message when the user tries to access a route that doesn't exist
+// This also need to be below out normal routes because this is just a callback function
+// Because we need to forward an error from here to the error handler, we need to define this on top of the error handler
+// We don't need to define the types of the arguments because express will automatically infer the types
+// We only need to define them when we are creating an error handler
+app.use((req, res, next) => {
+  // We are creating a new error and passing it to the next function
+  next(Error("Route not found"));
+});
+
 // This will be the error handler
 // It will be called whenever an error occurs
 // We need to use app.use to set up the error handler
