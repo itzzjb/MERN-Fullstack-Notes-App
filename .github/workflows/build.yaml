@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
+      MONGO_CONNECTION_STRING: mongodb+srv://notesuser:notesuser123@notes-cluster.vjv6mi5.mongodb.net/notes_app?retryWrites=true&w=majority&appName=Notes-Cluster
       PORT: 3000
 
     steps:
