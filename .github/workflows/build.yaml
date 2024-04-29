@@ -1,13 +1,16 @@
 name: Starting the server
 
-on:
-  push:
-    branches:
-      - main
+run-name: Starting the server
+
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
+    env:
+      MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
+      PORT: ${{ secrets.PORT }}
 
     steps:
       - uses: actions/checkout@v2
