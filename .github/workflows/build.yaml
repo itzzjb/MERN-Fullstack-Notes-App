@@ -19,6 +19,8 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: ./backend
 
       - name: Start the server
         run: npm start
+        working-directory: ./backend
