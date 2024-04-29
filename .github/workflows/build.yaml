@@ -1,4 +1,4 @@
-name: Running the server
+name: Starting the server
 
 on:
   push:
@@ -8,16 +8,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
           node-version: "14"
+
       - name: Install dependencies
         run: npm install
-        working-directory: ./backend
+
       - name: Start the server
         run: npm start
-        working-directory: ./backend
