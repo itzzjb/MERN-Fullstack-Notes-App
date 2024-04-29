@@ -338,4 +338,4 @@ We can refer more about [middleware in express here](https://expressjs.com/en/gu
 
 ## Organizing the Codebase
 
-
+We must not add all the endpoints in the `app.ts` file because we need to add many endpoints with complex logic. So, we need to create `routes` and `controllers` directories in order to organize the endpoints.

@@ -7,42 +7,16 @@ import "dotenv/config";
 // NextFunction, Request, Response are types from express that are used to define the types of arguments used in the error handler
 import express, { NextFunction, Request, Response } from "express";
 
-// Importing the notes module
-import NoteModel from "./models/notes";
+// We can import the routes from the routes folder
+import notesRoutes from "./routes/notesRoutes";
 
 // Creating an instance of express
 // This app will act as our server
 const app = express();
 
-// Note: Arrow functions are functions without a name
-
-// This is an endpoint HTTP get request
-// We need to use async because we are using await inside the function
-app.get("/", async (req, res, next) => {
-  // We need to use a try catch block to catch any errors that might occur
-  // By using try catch blocks, we can catch the errors and send a responses to the frontend
-  // Our server will not crash if something goes wrong
-  try {
-    // Simulating an error by throwing an error
-    // throw Error("Bazinga!");
-
-    // Sending a response
-    // We need to get the notes out of the database and return them
-    // NoteModel.find().exec() will execute the find operation and return a promise
-    // Find is a asynchronous operation, so we need to use await because it will take some time
-    const notes = await NoteModel.find().exec();
-    // We need to set the http status code to 200
-    // It means ok or success
-    // And send the notes as a json object to the frontend
-    // Here we don't need to use curly braces because we notes is an object, and json knows how to convert objects into json
-    res.status(200).json(notes);
-  } catch (error) {
-    // next is a function that will call the next middleware
-    // Middleware is a function that will be called before the endpoint
-    // Following will pass the error to the error handler
-    next(error);
-  }
-});
+// Now we can create a middleware to parse the incoming requests
+// Any request that comes with the /api/notes will be forwarded to the notesRoutes
+app.use("/api/notes", notesRoutes);
 
 // We can also create another middleware to create our own error message when the user tries to access a route that doesn't exist
 // This also need to be below out normal routes because this is just a callback function
