@@ -36,6 +36,27 @@ export const getNotes: RequestHandler = async (req, res, next) => {
   }
 };
 
+// We need to have an endpoint to get a single note
+export const getNote: RequestHandler = async (req, res, next) => {
+  // We need to get the id from the request parameters
+  // We can use req.params to get the parameters
+  // We can get the id from the parameters into a separate variable
+  const noteId = req.params.noteId;
+  try {
+    // We need to get the note out of the database and return it
+    // NoteModel.findById(id).exec() will execute the findById operation and return a promise
+    // FindById is a asynchronous operation, so we need to use await because it will take some time
+    const note = await NoteModel.findById(noteId).exec();
+    // We need to set the http status code to 200
+    // It means ok or success
+    // And send the note as a json object to the frontend
+    // Here we don't need to use curly braces because we note is an object, and json knows how to convert objects into json
+    res.status(200).json(note);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // We can a another endpoint to create a new note
 export const createNote: RequestHandler = async (req, res, next) => {
   // We can put the following two lines outside the try catch block because they don't throw any errors

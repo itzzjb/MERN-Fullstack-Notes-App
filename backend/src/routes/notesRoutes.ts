@@ -15,9 +15,14 @@ const router = express.Router();
 // We can have the same endpoint for different HTTP methods
 
 // This is an endpoint HTTP get request
-// This route will be called when the user tries to access the root of the website
+// This route will be called when the user tries to access the /api/notes of the website
 // The getNotes function is called from the NotesController
 router.get("/", NotesController.getNotes);
+
+// This is an endpoint HTTP get request
+// This route will be called when the user tries to access the /api/notes/:noteId of the website
+// The getNote function is called from the NotesController
+router.get("/:noteId", NotesController.getNote);
 
 // This is an endpoint HTTP post request
 // This route will be called when the user tries to create a new note
