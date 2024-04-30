@@ -10,9 +10,17 @@ import express, { NextFunction, Request, Response } from "express";
 // We can import the routes from the routes folder
 import notesRoutes from "./routes/notesRoutes";
 
+// We need to import morgan in order to setup it's middleware
+import morgan from "morgan";
+
 // Creating an instance of express
 // This app will act as our server
 const app = express();
+
+// We need to setup the morgan middleware to log the requests to the console
+// "dev" is a predefined format that morgan uses to log the requests
+// We can also use other formats like combined, common, short, tiny, etc
+app.use(morgan("dev"));
 
 // We need to create a middleware to set up json to used in the express app
 // This should be above other middlewares (exactly here)

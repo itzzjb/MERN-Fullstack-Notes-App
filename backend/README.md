@@ -339,3 +339,21 @@ We can refer more about [middleware in express here](https://expressjs.com/en/gu
 ## Organizing the Codebase
 
 We must not add all the endpoints in the `app.ts` file because we need to add many endpoints with complex logic. So, we need to create `routes` and `controllers` directories in order to organize the endpoints.
+
+# Logging
+
+We can install a package called **morgan** which is a HTTP request logger middleware for node.js. We can see all the requests send into different endpoints on our server.
+
+This is a normal dependency.
+
+```sh
+npm i morgan
+```
+
+We need to import morgan and add the middleware of morgan to `app.ts` file.
+
+Because we are using typescript when we are importing new packages we would need to install more @types dependencies as well. This is a one example of that.
+
+```sh
+npm i -D @types/morgan
+```
