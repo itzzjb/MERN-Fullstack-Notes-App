@@ -340,7 +340,7 @@ We can refer more about [middleware in express here](https://expressjs.com/en/gu
 
 We must not add all the endpoints in the `app.ts` file because we need to add many endpoints with complex logic. So, we need to create `routes` and `controllers` directories in order to organize the endpoints.
 
-# Logging
+## Logging
 
 We can install a package called **morgan** which is a HTTP request logger middleware for node.js. We can see all the requests send into different endpoints on our server.
 
@@ -356,4 +356,22 @@ Because we are using typescript when we are importing new packages we would need
 
 ```sh
 npm i -D @types/morgan
+```
+
+## HTTP Error Handling in Express
+
+We can't have the same 500 status code for all the errors. For example we need to have 404 status code for the endpoint not found error.
+
+Also, when we try to create a note without a title it will give an error because we set title to `required: true`. But it will be a default mongodb error message which can be difficult to understand. So, we want to provide our own error message.
+
+We can use another package to easily manage these kinds of http errors called **http-errors**. This should be added as a normal dependency.
+
+```sh
+npm i http-errors
+```
+
+Now, because we are using typescript we need to install the @types dependency too. This should be a dev dependency.
+
+```sh
+npm i -D @types/http-errors
 ```
