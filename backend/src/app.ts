@@ -45,7 +45,7 @@ app.use((req, res, next) => {
   // We are creating a new http error using http-errors package and passing it to the next function
   // We need to pass both status code and the error message to the createHttpError function
   // 404 is the status code for resource not found
-  next(createHttpError(404, "Route not found"));
+  next(createHttpError(404, "Endpoint not found"));
 });
 
 // This will be the error handler
@@ -62,7 +62,7 @@ app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
   // We use let because we will change the value of errorMessage and status code later
   let errorMessage = "Internal Server Error";
   let statusCode = 500;
-  // We need to check if the code is actually throwing an error in the type of http-error. (They can also throw null, strings, numbers or other types of errors)
+  // We need to check if the code is actually throwing an http-error. (They can also throw null, strings, numbers etc.)
   if (isHttpError(error)) {
     // Every instance of http-error has message and a status code property
     // We can use this to set the error message and status code

@@ -360,9 +360,9 @@ npm i -D @types/morgan
 
 ## HTTP Error Handling in Express
 
-We can't have the same 500 status code for all the errors. For example we need to have 404 status code for the endpoint not found error.
+We can't have the same 500 status code for all the errors. For example we need to have 404 status code for the endpoint not found error. Now it's "Endpoint Not Found" with status code "500".
 
-Also, when we try to create a note without a title it will give an error because we set title to `required: true`. But it will be a default mongodb error message which can be difficult to understand. So, we want to provide our own error message.
+Also, when we try to create a note without a title it will give an error because we set title to `required: true`. But it will be the "Internal Server Error" with status "500" as we hard-corded. error message which can be difficult to understand. So, we want to provide our own error message.
 
 We can use another package to easily manage these kinds of http errors called **http-errors**. This should be added as a normal dependency.
 
@@ -376,4 +376,4 @@ Now, because we are using typescript we need to install the @types dependency to
 npm i -D @types/http-errors
 ```
 
-The advantage of using this package is when we are creating a http error using http-errors package, both error message and the status are passed inside the error object we created.
+The advantage of using this package is when we are creating a http error using http-errors package, both error message and the status are passed inside the error object we created. (Previously when using Error() to create an error we only passed the error message)
