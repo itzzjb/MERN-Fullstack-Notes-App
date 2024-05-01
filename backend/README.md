@@ -375,3 +375,5 @@ Now, because we are using typescript we need to install the @types dependency to
 ```sh
 npm i -D @types/http-errors
 ```
+
+The advantage of using this package is when we are creating a http error using http-errors package, both error message and the status are passed inside the error object we created.

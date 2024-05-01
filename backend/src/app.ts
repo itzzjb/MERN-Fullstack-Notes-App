@@ -13,6 +13,11 @@ import notesRoutes from "./routes/notesRoutes";
 // We need to import morgan in order to setup it's middleware
 import morgan from "morgan";
 
+// We need to import createHttpError function and isHttpError function from http-errors package
+// createHttpError is a default import so we don't need to use curly braces
+// isHttpError is not a default import so we need to use curly braces
+import createHttpError, { isHttpError } from "http-errors";
+
 // Creating an instance of express
 // This app will act as our server
 const app = express();
@@ -37,8 +42,10 @@ app.use("/api/notes", notesRoutes);
 // We don't need to define the types of the arguments because express will automatically infer the types
 // We only need to define them when we are creating an error handler
 app.use((req, res, next) => {
-  // We are creating a new error and passing it to the next function
-  next(Error("Route not found"));
+  // We are creating a new http error using http-errors package and passing it to the next function
+  // We need to pass both status code and the error message to the createHttpError function
+  // 404 is the status code for resource not found
+  next(createHttpError(404, "Route not found"));
 });
 
 // This will be the error handler
@@ -52,18 +59,20 @@ app.use((req, res, next) => {
 app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
   // Log the error to the console
   console.error(error);
-  // We use let because we will change the value of errorMessage later
+  // We use let because we will change the value of errorMessage and status code later
   let errorMessage = "Internal Server Error";
-  // We need to check if the code is actually throwing an error. (They can also throw null, strings, numbers, etc)
-  if (error instanceof Error) {
-    // Every instance of error has a message property
-    // We can use this to set the error message
+  let statusCode = 500;
+  // We need to check if the code is actually throwing an error in the type of http-error. (They can also throw null, strings, numbers or other types of errors)
+  if (isHttpError(error)) {
+    // Every instance of http-error has message and a status code property
+    // We can use this to set the error message and status code
+    statusCode = error.status;
     errorMessage = error.message;
   }
   // We need to set the http status code to 500
   // It means internal server error
   // We need to add curly braces because we need to send in json format
-  res.status(500).json({ error: errorMessage });
+  res.status(statusCode).json({ error: errorMessage });
 });
 
 // We need to export the app so that we can use it in the server.ts file
