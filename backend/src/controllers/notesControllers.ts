@@ -4,6 +4,9 @@
 import { RequestHandler } from "express";
 // We need to import the NoteModel from the models folder
 import NoteModel from "../models/notes";
+// We need to import mongoose to check if the id is valid or not
+import mongoose from "mongoose";
+// createHttpError is a default import so we don't need to use curly braces
 import createHttpError from "http-errors";
 
 // We need export the functions so they can be used in the routes
@@ -44,10 +47,25 @@ export const getNote: RequestHandler = async (req, res, next) => {
   // We can get the id from the parameters into a separate variable
   const noteId = req.params.noteId;
   try {
+    // We need to check whether the noteId is a valid id or not (It is a valid mongodb id)
+    // mongodb ids are 24 characters long
+    // We can use mongoose to check if the id is valid or not
+    if (!mongoose.isValidObjectId(noteId)) {
+      // 400 is the status code for bad request
+      throw createHttpError(400, "Invalid note id");
+    }
+
     // We need to get the note out of the database and return it
     // NoteModel.findById(id).exec() will execute the findById operation and return a promise
     // FindById is a asynchronous operation, so we need to use await because it will take some time
     const note = await NoteModel.findById(noteId).exec();
+
+    // If a note didn't exist with the given id, we need to throw an error
+    if (!note) {
+      // 404 is the status code for resource not found
+      throw createHttpError(404, "Note not found");
+    }
+
     // We need to set the http status code to 200
     // It means ok or success
     // And send the note as a json object to the frontend
