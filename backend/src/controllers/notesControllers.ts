@@ -4,6 +4,7 @@
 import { RequestHandler } from "express";
 // We need to import the NoteModel from the models folder
 import NoteModel from "../models/notes";
+import createHttpError from "http-errors";
 
 // We need export the functions so they can be used in the routes
 // We don't use export default because we have multiple exports
@@ -57,8 +58,26 @@ export const getNote: RequestHandler = async (req, res, next) => {
   }
 };
 
+// We can create a interface to declare the type of the fields in a request body
+// Interfaces are very similar to types
+// The difference is that interfaces can be extended and types can't
+interface CreateNoteBody {
+  // ? means that the field is optional
+  // We are giving optional also to the title because we are not sure if the user will send the title or not
+  title?: string;
+  text?: string;
+}
+
 // We can a another endpoint to create a new note
-export const createNote: RequestHandler = async (req, res, next) => {
+// The 4 arguments of the RequestHandler are in the types of Params, ResBody, ReqBody and ReqQuery
+// We only need to change the ReqBody because we are only giving a type to the request body
+// Others are given as unknown because we are not changing them
+export const createNote: RequestHandler<
+  unknown,
+  unknown,
+  CreateNoteBody,
+  unknown
+> = async (req, res, next) => {
   // We can put the following two lines outside the try catch block because they don't throw any errors
   // We need to get the title and content from the request body
   // We can use req.body to get the body of the request
@@ -66,6 +85,15 @@ export const createNote: RequestHandler = async (req, res, next) => {
   const title = req.body.title;
   const text = req.body.text;
   try {
+    // We need to check whether the title is defined or not
+    // !title means that title is not defined
+    if (!title) {
+      // We need to throw the error so catch block can catch it
+      // 404 is the status code for bad request
+      // This is used in situations where the user sends a request that is not valid like missing an required argument
+      throw createHttpError(400, "Note must have a title");
+    }
+
     // We can use the NoteModel.create() function to create the notes in the database
     // We need to also save the note in a variable because we also need to send it to the frontend
     // We don't need .exec() here
