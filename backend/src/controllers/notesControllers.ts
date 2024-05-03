@@ -76,7 +76,7 @@ export const getNote: RequestHandler = async (req, res, next) => {
   }
 };
 
-// We can create a interface to declare the type of the fields in a request body
+// We can create an interface to declare the type of the fields in a request body
 // Interfaces are very similar to types
 // The difference is that interfaces can be extended and types can't
 interface CreateNoteBody {
@@ -88,6 +88,8 @@ interface CreateNoteBody {
 
 // We can a another endpoint to create a new note
 // The 4 arguments of the RequestHandler are in the types of Params, ResBody, ReqBody and ReqQuery
+// Note that if we define the type in the RequestHandler, we need to define all the type manually.
+// Previously, we didn't need to define the types because they were inferred
 // We only need to change the ReqBody because we are only giving a type to the request body
 // Others are given as unknown because we are not changing them
 export const createNote: RequestHandler<
@@ -113,7 +115,7 @@ export const createNote: RequestHandler<
     }
 
     // We can use the NoteModel.create() function to create the notes in the database
-    // We need to also save the note in a variable because we also need to send it to the frontend
+    // We need to also save the note in a variable (newNote) because we also need to send it to the frontend
     // We don't need .exec() here
     const newNote = await NoteModel.create({
       // Creating a new note with the title and text that we got from the request body
@@ -125,6 +127,117 @@ export const createNote: RequestHandler<
     // And send the note as a json object to the frontend
     // Here we don't need to use curly braces because we notes is an object, and json knows how to convert objects into json
     res.status(201).json(newNote);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// Because we are defining types for the RequestHandler, we need to define the types for the Params, ResBody, ReqBody and ReqQuery manually
+// Previously, we didn't need to define the type of nodeId because it was inferred.
+// So, we can create an interface to declare the type of the fields in the request parameters
+// We need to pass the noteId as Params
+interface UpdateNoteParams {
+  // noteId should be same as the parameter name in the route (notesRoutes.ts)
+  // We don'e need to add ? because without noteId, we wouldn't be able to access this endpoint in the first place
+  noteId: string;
+}
+
+// We need to create an interface to declare the type of the fields in the request body
+interface UpdateNoteBody {
+  title?: string;
+  text?: string;
+}
+
+// We can have an endpoint to update a note
+// The 4 arguments of the RequestHandler are in the types of Params, ResBody, ReqBody and ReqQuery
+// Here we also need to pass the id as Params with the ReqBody
+export const updateNote: RequestHandler<
+  UpdateNoteParams,
+  unknown,
+  UpdateNoteBody,
+  unknown
+> = async (req, res, next) => {
+  const noteId = req.params.noteId;
+  const newTitle = req.body.title;
+  const newText = req.body.text;
+  try {
+    // We need to check whether the noteId is a valid id or not (It is a valid mongodb id)
+    if (!mongoose.isValidObjectId(noteId)) {
+      // 400 is the status code for bad request
+      throw createHttpError(400, "Invalid note id");
+    }
+
+    // We need to check whether the title is defined or not
+    if (!newTitle) {
+      // 404 is the status code for bad request
+      throw createHttpError(400, "Note must have a title");
+    }
+
+    // We need to find the note with the given id
+    // NoteModel.findById(id).exec() will execute the findById operation and return a promise
+    // FindById is a asynchronous operation, so we need to use await because it will take some time
+    const note = await NoteModel.findById(noteId).exec();
+
+    // If a note didn't exist with the given id, we need to throw an error
+    if (!note) {
+      // 404 is the status code for resource not found
+      throw createHttpError(404, "Note not found");
+    }
+
+    // We need to update the title and text of the note
+    note.title = newTitle;
+    note.text = newText;
+
+    // We need to save the note in the database
+    // We don't need .exec() here
+    // We need to also save the note in a variable (updatedNote) because we also need to send it to the frontend
+    const updatedNote = await note.save();
+
+    // We need to set the http status code to 200
+    // It means ok or success
+    // And send the note as a json object to the frontend
+    // Here we don't need to use curly braces because we note is an object, and json knows how to convert objects into json
+    res.status(200).json(updatedNote);
+  } catch (error) {
+    next(error);
+  }
+};
+
+// We can have an endpoint to delete a note
+export const deleteNote: RequestHandler = async (req, res, next) => {
+  // We don't need to create an interface for the request parameters because we are not passing types to the RequestHandler
+  // Because we are not passing ReqBody, there is no need to pass types to the RequestHandler
+  // We can use req.params to get the parameters
+  const noteId = req.params.noteId;
+  try {
+    // We need to check whether the noteId is a valid id or not (It is a valid mongodb id)
+    if (!mongoose.isValidObjectId(noteId)) {
+      // 400 is the status code for bad request
+      throw createHttpError(400, "Invalid note id");
+    }
+
+    // We need to find the note with the given id
+    // NoteModel.findById(id).exec() will execute the findById operation and return a promise
+    // FindById is a asynchronous operation, so we need to use await because it will take some time
+    const note = await NoteModel.findById(noteId).exec();
+
+    // If a note didn't exist with the given id, we need to throw an error
+    if (!note) {
+      // 404 is the status code for resource not found
+      throw createHttpError(404, "Note not found");
+    }
+
+    // We need to remove the note from the database
+    // We don't need .exec() here
+    // We don't need to save the note in a variable because we don't need to send it to the frontend
+    // deleteOne() is a mongoose function to delete a document from the database
+    await note.deleteOne();
+
+    // We need to set the http status code to 204
+    // It means no content
+    // Note that only using status(204) won't send a response, json() is needed to send a response
+    // Here because we are not sending any data in the body, we can use sendStatus instead of status().json()
+    res.sendStatus(204);
   } catch (error) {
     next(error);
   }

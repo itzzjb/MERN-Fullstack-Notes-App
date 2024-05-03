@@ -29,5 +29,15 @@ router.get("/:noteId", NotesController.getNote);
 // The createNote function is called from the NotesController
 router.post("/", NotesController.createNote);
 
+// This is an endpoint HTTP patch request
+// This route will be called when the user tries to update a note
+// The updateNote function is called from the NotesController
+router.patch("/:noteId", NotesController.updateNote);
+
+// This is an endpoint HTTP delete request
+// This route will be called when the user tries to delete a note
+// The deleteNote function is called from the NotesController
+router.delete("/:noteId", NotesController.deleteNote);
+
 // We need to export the router so that we can use it in the app.ts file
 export default router;
