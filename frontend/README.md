@@ -52,3 +52,49 @@ But in Declarative UI, once you declare a element, how they look, what data they
 - We can keep the UI in sync. (many different variables, elements, states ... )
 - We can do stuff like putting for loops directly on HTML
 - Allows to create reusable components that we can use in different places in our app. (Because there is no separation between HTML and Js)
+
+## Downloading React Bootstrap
+
+For guidance we can refer the [documentation](https://react-bootstrap-v4.netlify.app/getting-started/introduction/).
+
+We can install react bootstrap using the following command
+
+```sh
+npm install react-bootstrap bootstrap@4.6.0
+```
+
+Then we need to import bootstrap css into `index.tsx` file.
+
+```sh
+import 'bootstrap/dist/css/bootstrap.min.css';
+```
+
+> [!NOTE]
+> We need to import bootstrap on the very top of the `index.tsx` file. (Order is important for these imports)
+
+## How React Renders the Output?
+
+The `index.tsx` is file is that initializes the react app. For this it uses the `index.html` file in the `public` directory and the `app.tsx` file.
+
+The `public` directory contains the `index.html` file, images, `favicon.ico` file etc.
+
+The `index.html` file contains the meta data of the application. And also there is a `<div>` that has a id called `root`. The `app.tsx` will be rendered there by `index.tsx`.
+
+`index.html`:
+
+```sh
+ <div id="root"></div>
+```
+
+`index.tsx`:
+
+```sh
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLElement
+);
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+```
