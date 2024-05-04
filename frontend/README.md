@@ -65,8 +65,8 @@ npm install react-bootstrap bootstrap@4.6.0
 
 Then we need to import bootstrap css into `index.tsx` file.
 
-```sh
-import 'bootstrap/dist/css/bootstrap.min.css';
+```tsx
+import "bootstrap/dist/css/bootstrap.min.css";
 ```
 
 > [!NOTE]
@@ -78,17 +78,19 @@ The `index.tsx` is file is that initializes the react app. For this it uses the 
 
 The `public` directory contains the `index.html` file, images, `favicon.ico` file etc.
 
+Code of the actual app live inside `app.tsx` file. We can create different files for different files and components but they will be somehow included in `app.tsx` file.
+
 The `index.html` file contains the meta data of the application. And also there is a `<div>` that has a id called `root`. The `app.tsx` will be rendered there by `index.tsx`.
 
 `index.html`:
 
-```sh
- <div id="root"></div>
+```html
+<div id="root"></div>
 ```
 
 `index.tsx`:
 
-```sh
+```tsx
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

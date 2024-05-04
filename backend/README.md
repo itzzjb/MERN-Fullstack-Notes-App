@@ -109,7 +109,7 @@ node server.js
 2. We need to tell typescript compiler to add the generated javascript files into its own folder. (dist : distribution)
    - Uncomment the outDir key-value pair.
    - Add the new `dist` directory as a value to to it.
-   ```sh
+   ```json
    "outDir": "./dist",
    ```
 
@@ -150,13 +150,13 @@ npx nodemon src/server.ts
 > [!IMPORTANT]
 > When using nodemon and ts-node, there won't be a compiled javascript file creation in the `dist` directory. But, we use those packages only in development. So, in the production environment there will be a compiled javascript code in the `dist` directory. So, we need to change the value of `main` in the package.json file to the compiled javascript file.
 
-```sh
+```json
 "main": "dist/server.js",
 ```
 
 Now, we can use **scripts** to create short hand to commands that we are using regularly. We can add them in the script section of `package.json` file.
 
-```sh
+```json
 "scripts": {
     "start": "nodemon src/server.ts"
 },
@@ -203,7 +203,7 @@ npx eslint --ext .ts
 
 We can create a script for the above command too.
 
-```sh
+```json
 "scripts": {
     "start": "nodemon src/server.ts",
     "lint": "eslint --ext .ts"
@@ -272,7 +272,7 @@ We need to add the database name, user and the user password in the connection s
 - database user: notesuser
 - database password: notesuser123
 
-```sh
+```env
 MONGO_CONNECTION_STRING=mongodb+srv://notesuser:notesuser123@notes-cluster.vjv6mi5.mongodb.net/notes_app?retryWrites=true&w=majority&appName=Notes-Cluster
 PORT=5000
 ```
