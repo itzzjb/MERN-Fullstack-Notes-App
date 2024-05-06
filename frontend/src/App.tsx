@@ -1,8 +1,15 @@
-import React from "react";
+// We need to import useState from react to use the state
+import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
 function App() {
+  // Here we wan't something to save the current state of the application
+  // We need to notify react to reach out to UI to display the new values
+  // We can create a state variable to store the current state of the application
+  // clickCount is the state variable and setClickCount is the function to update the state
+  const [clickCount, setClickCount] = useState(0);
+
   return (
     <div className="App">
       <header className="App-header">
