@@ -1,34 +1,60 @@
-// We need to import useState from react to use the state
-import React, { useState } from "react";
-import logo from "./logo.svg";
+// We need to import useState, useEffect from react to use the state
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import { Button } from "react-bootstrap";
+import { Note } from "./models/notes";
 
 function App() {
   // Here we want something to save the current state of the application
   // We need to notify react to reach out to UI to display the new values
   // We can create a state variable to store the current state of the application
-  // clickCount is the state variable and setClickCount is the function to update the state
-  // Because we initialized the state with 0, clickCount is 0
-  const [clickCount, setClickCount] = useState(0);
+
+  // notes is the state variable and setNotes is the function to update the state
+  // Remember that the if the state variable's name is notes, the function to update the state should be setNotes (likewise for other variables)
+  // Because we are importing the notes from the notes.ts file as an array , we are using a empty array as the initial value
+  // We also need to define the type of the state variable as an array of Note objects (<Note[]>)
+  const [notes, setNotes] = useState<Note[]>([]);
+
+  // We only want to fetch the notes once when the component is mounted
+  // It should happen automatically without us needing to click a button (do anything)
+  // We can use the useEffect hook to do this
+  // The function inside useEffect will be called when the component is mounted
+  useEffect(() => {
+    // We are using fetch to make a request to the backend
+    // We need to create a async function to use the await keyword
+    // So we can create a function inside useEffect and call it
+    async function fetchNotes() {
+      // fetch call can send an error id something goes wrong
+      // We can use try catch to handle the error
+      try {
+        // We can use the get all notes endpoint to get all the notes
+        const response = await fetch("https://localhost:3001/api/notes", {
+          method: "GET",
+        });
+        // Now we need to get the data from the response
+        // This will pass the json body of the response to the notes variable
+        const notes = await response.json();
+        // Now we need to set the notes state variable to the data
+        // When the status of the state variable (notes) changes by (setNotes), react will automatically update the UI
+        setNotes(notes);
+      } catch (error) {
+        // For now wee can log the error to the console and send an alert (popup) to the user
+        console.error(error);
+        alert(error);
+      }
+    }
+    // We need to call the fetchNotes function to make the request
+    fetchNotes();
+    // We need to add the empty array as the second argument to make sure the function is only called once
+    // Otherwise the function will be called every time the component is rendered
+    // We can also add other dependencies to the function
+    // For example, we can add the notes array as a dependency to make sure the function is only called when the notes array changes
+  }, []);
 
   // The return statement returns the actual UI element
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Januda Bethmin Is Here</p>
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        {/* Button is a react-bootstrap component */}
-        {/* We can pass the clickCount variable to the Button component */}
-        {/* We can set a onClick event listener to the button and call the setClickCount function to update the state */}
-        {/* The clickCount will be incremented once the button is clicked*/}
-        <Button onClick={() => setClickCount(clickCount + 1)}>
-          Clicked {clickCount} times
-        </Button>
-      </header>
+      {/* Displaying the values that we received from the backend using fetch  */}
+      {JSON.stringify(notes)}
     </div>
   );
 }
