@@ -5,4 +5,6 @@
 }
 
 .cardText {
+  /* We there are multiple lines in a text, each line should start in a new line.*/
+  white-space: pre-line;
 }

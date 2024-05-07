@@ -30,12 +30,13 @@ const Note = ({ note }: NoteProps) => {
   // Card is a bootstrap component
   return (
     // We can use the className prop to add a classes
+    // This is called className instead of class because class is a reserved keyword in javascript
     // We can use the styles object to get the class from the css file
     <Card className={styles.noteCard}>
       <Card.Body>
         {/* Getting the title from the note object we passed here */}
         <Card.Title>{note.title}</Card.Title>
-        <Card.Text className="style.cardText">{note.text}</Card.Text>
+        <Card.Text className={styles.cardText}>{note.text}</Card.Text>
       </Card.Body>
     </Card>
   );
