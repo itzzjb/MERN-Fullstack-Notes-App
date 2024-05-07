@@ -182,3 +182,24 @@ We can add a proxy by going to `package.json` file of the frontend and adding th
 We can use `cors` package in the backend for setup that. But here we don't need that because we are not building a public api.
 
 You can find information about cors package [here](https://www.npmjs.com/package/cors).
+
+## Creating React Components
+
+We need to create a component that contains the layout of each note. We can create a `components` directory inside the `src` directory.
+
+The `components` directory will contain all the single components like models and pages. For now, we can create a `Note.tsx` file to create the notes component. The file should be a `.tsx` file here.
+
+> [!IMPORTANT]
+> We are naming these modules in starting with a capital letter. ex - App.tsx, Note.tsx ...
+
+React components comes in 2 forms.
+
+1. As a class (old method)
+2. As a function (new method)
+
+> [!NOTE]
+> Note that we can created a function App() in `App.tsx` file too.
+
+We can get templates of many components from the bootstrap library [component section](https://react-bootstrap.netlify.app/docs/components/accordion)
+
+## Adding CSS Modules

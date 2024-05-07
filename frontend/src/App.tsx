@@ -1,7 +1,11 @@
 // We need to import useState, useEffect from react to use the state
 import React, { useEffect, useState } from "react";
 import "./App.css";
-import { Note } from "./models/notes";
+
+// We need to import the Note interface from the notes.ts file
+// We are using an alias called NoteModel here because the Note type and the Note function have the same name
+import { Note as NoteModel } from "./models/notes";
+import Note from "./components/Note";
 
 function App() {
   // Here we want something to save the current state of the application
@@ -12,7 +16,7 @@ function App() {
   // Remember that the if the state variable's name is notes, the function to update the state should be setNotes (likewise for other variables)
   // Because we are importing the notes from the notes.ts file as an array , we are using a empty array as the initial value
   // We also need to define the type of the state variable as an array of Note objects (<Note[]>)
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [notes, setNotes] = useState<NoteModel[]>([]);
 
   // We only want to fetch the notes once when the component is mounted
   // It should happen automatically without us needing to click a button (do anything)
@@ -54,8 +58,18 @@ function App() {
   // The return statement returns the actual UI element
   return (
     <div className="App">
-      {/* Displaying the values that we received from the backend using fetch  */}
-      {JSON.stringify(notes)}
+      {/* Displaying the notes using the note card components we created  */}
+      {/* Map allows us to get some specific data (like the array of notes here) and turn it into something different (like notes component)*/}
+      {/* We can use the map function to loop over the notes array and return a Note component for each note */}
+
+      {/* Looping thought notes array while calling the each note as note variable ( (note) => ) */}
+      {notes.map((note) => (
+        // This <Note/> component is the one we created in the Note.tsx file
+        // We can pass the note object of each iteration as a prop to the Note component
+        // The key prop is required by react to keep track of the elements in the list
+        // We can use the _id field of the note object of each iteration as the key because it is unique
+        <Note note={note} key={note._id} />
+      ))}
     </div>
   );
 }
