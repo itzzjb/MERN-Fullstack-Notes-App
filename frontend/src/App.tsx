@@ -27,7 +27,8 @@ function App() {
       // We can use try catch to handle the error
       try {
         // We can use the get all notes endpoint to get all the notes
-        const response = await fetch("https://localhost:3001/api/notes", {
+        // We only need to set the /api/notes because we are using a proxy in the package.json file
+        const response = await fetch("/api/notes", {
           method: "GET",
         });
         // Now we need to get the data from the response

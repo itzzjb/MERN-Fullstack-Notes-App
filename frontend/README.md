@@ -147,4 +147,38 @@ Before fetching the notes from the database we need to create a model for notes.
 
 We can create `models` directory inside the `src` directory and create a `notes.ts` file.
 
-##
+## CORS policy
+
+We need to separately start both frontend and the backend of the application now. Even both of them are running successfully we can see that we get an error from the frontend that saying that ** Access to fetch at http://localhost:5000/api/notes from the origin http://localhost:3000 has been blocked by CORS policy ... **
+
+**CORS**: Cross-Origin Resource Sharing
+
+CORS is a security mechanism that doesn't allow our front-end to fetch data from the server because they are on different addresses. (localhost:3000 of frontend and localhost:5000 of backend count as different addresses)
+
+There are 2 ways to get around this,
+
+1. We have to configure the server as localhost:3000 as of that we will be allowed to fetch data from localhost:5000 address
+2. Both the frontend and the backend runs on the same address
+
+Later, in production we deploy everything to the same url. Our server code will be behind the `/api/` to identification.
+
+This CORS policy is actually enforced only by browsers (like chrome). That's why postman was able to successfully connect to the backend server and fetch data. (because postman is not a browser it's a development tool)
+
+> [!NOTE]
+> React renders the UI twice every time. This will only happen in the development not in production. This feature is implemented by react to make it easy to debug the code. (That's why when we get an error alert we get it twice every time)
+
+In the development in order to connect to the backend from the frontend and get data we need to add a proxy. This will basically run the backend in the same server as the frontend. (get the backend to the localhost:3000/api... and the frontend in localhost:3000 address)
+
+We can add a proxy by going to `package.json` file of the frontend and adding the following lines of code. We need to add that on top of dependencies. the value to the `proxy` key will be the basic address of the backend server.
+
+```json
+"proxy": "http://localhost:5000",
+"dependencies": {
+```
+
+> [!IMPORTANT]
+> The proxy approach only works because we have our own backend server and a frontend. But if we want to build a public api that different clients can access, then we must set up cors properly to allow these different origins.
+
+We can use `cors` package in the backend for setup that. But here we don't need that because we are not building a public api.
+
+You can find information about cors package [here](https://www.npmjs.com/package/cors).
