@@ -1,3 +1,6 @@
+// We need to import the styles from the Note.module.css file
+import styles from "../styles/Note.module.css";
+
 // We need to import the Card component from react-bootstrap
 import { Card } from "react-bootstrap";
 
@@ -26,11 +29,13 @@ const Note = ({ note }: NoteProps) => {
   // Let's return the ui for the note
   // Card is a bootstrap component
   return (
-    <Card>
+    // We can use the className prop to add a classes
+    // We can use the styles object to get the class from the css file
+    <Card className={styles.noteCard}>
       <Card.Body>
         {/* Getting the title from the note object we passed here */}
         <Card.Title>{note.title}</Card.Title>
-        <Card.Text>{note.text}</Card.Text>
+        <Card.Text className="style.cardText">{note.text}</Card.Text>
       </Card.Body>
     </Card>
   );

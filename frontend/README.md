@@ -1,6 +1,6 @@
 # Frontend
 
-You can refer to the [documentation] (https://create-react-app.dev/docs/getting-started) to learn more.
+You can refer to the [documentation](https://create-react-app.dev/docs/getting-started) to learn more.
 
 ## Creating a new Vanilla React Project
 
@@ -203,3 +203,31 @@ React components comes in 2 forms.
 We can get templates of many components from the bootstrap library [component section](https://react-bootstrap.netlify.app/docs/components/accordion)
 
 ## Adding CSS Modules
+
+We can remove the default `App.css` file. Also, we are not planning to use global css file. We are going to use css modules instead.
+
+By using models we can reduce clashes of css styling throughout the application by having all of them in global files.
+
+We need to remove the import of the `App.css` from the `App.tsx` file and remove the `className="App"` statement from the div inside return function of App().
+
+We have another css file called `index.css` file, which is imported in the `index.tsx` file.
+
+We can use this file as our global css file because even we are using css modules we need have a one single global css file in order to setup styles that we need to setup once globally not for each component. (like the font, background etc.)
+
+We can move all of our css files into a separate directory called `styles` inside `src` file.
+
+Then, we can change the name of `index.css` as `global.css`.
+
+Remember to change the import in `index.tsx` file as follows.
+
+```tsx
+import "./styles/global.css";
+```
+
+We can create a css module as `Note.module.css` to the Note react component we created in the `Note.tsx` file.
+
+Import the `Note.module.css` file to the `Note.tsx` file.
+
+```tsx
+
+```

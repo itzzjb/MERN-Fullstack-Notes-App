@@ -1,6 +1,5 @@
 // We need to import useState, useEffect from react to use the state
 import React, { useEffect, useState } from "react";
-import "./App.css";
 
 // We need to import the Note interface from the notes.ts file
 // We are using an alias called NoteModel here because the Note type and the Note function have the same name
@@ -57,7 +56,7 @@ function App() {
 
   // The return statement returns the actual UI element
   return (
-    <div className="App">
+    <div>
       {/* Displaying the notes using the note card components we created  */}
       {/* Map allows us to get some specific data (like the array of notes here) and turn it into something different (like notes component)*/}
       {/* We can use the map function to loop over the notes array and return a Note component for each note */}

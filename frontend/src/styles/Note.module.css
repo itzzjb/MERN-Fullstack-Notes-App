@@ -1,0 +1,8 @@
+/* These classes will be used to style the Note Component objects in the frontend. */
+.noteCard {
+  /* Adding a background color to the cards */
+  background-color: #c7eeff;
+}
+
+.cardText {
+}
