@@ -231,3 +231,7 @@ Import the `Note.module.css` file to the `Note.tsx` file.
 ```tsx
 
 ```
+
+## Layout of the Application
+
+We can find more about layouts we can have using the [documentation](https://react-bootstrap.netlify.app/docs/layout/grid).

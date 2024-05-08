@@ -2,6 +2,8 @@
 .noteCard {
   /* Adding a background color to the cards */
   background-color: #c7eeff;
+  /* Adding a margin-top to the class. This is similar to adding className = "g-4" to the Row component in App.tsx */
+  margin-top: 1.5rem;
 }
 
 .cardText {

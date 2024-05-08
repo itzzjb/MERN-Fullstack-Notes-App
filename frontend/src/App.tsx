@@ -1,13 +1,13 @@
 // We need to import useState, useEffect from react to use the state
 import React, { useEffect, useState } from "react";
 
+// Imported the Container, Row, Col components from react-bootstrap
+import { Col, Container, Row } from "react-bootstrap";
+
 // We need to import the Note interface from the notes.ts file
 // We are using an alias called NoteModel here because the Note type and the Note function have the same name
 import { Note as NoteModel } from "./models/notes";
 import Note from "./components/Note";
-
-// Imported the Container component from react-bootstrap
-import { Container } from "react-bootstrap";
 
 function App() {
   // Here we want something to save the current state of the application
@@ -59,19 +59,27 @@ function App() {
 
   // The return statement returns the actual UI element
   return (
+    // Container is a bootstrap component. This will add some padding to the sides of the page
     <Container>
-      {/* Displaying the notes using the note card components we created  */}
-      {/* Map allows us to get some specific data (like the array of notes here) and turn it into something different (like notes component)*/}
-      {/* We can use the map function to loop over the notes array and return a Note component for each note */}
+      {/* Row is a bootstrap component */}
+      {/* We need to define how many columns per each row we should have in different different screen sizes when using the application*/}
+      <Row xs={1} md={2} xl={3}>
+        {/* Displaying the notes using the note card components we created  */}
+        {/* Map allows us to get some specific data (like the array of notes here) and turn it into something different (like notes component)*/}
+        {/* We can use the map function to loop over the notes array and return a Note component for each note */}
 
-      {/* Looping thought notes array while calling the each note as note variable ( (note) => ) */}
-      {notes.map((note) => (
-        // This <Note/> component is the one we created in the Note.tsx file
-        // We can pass the note object of each iteration as a prop to the Note component
-        // The key prop is required by react to keep track of the elements in the list
-        // We can use the _id field of the note object of each iteration as the key because it is unique
-        <Note note={note} key={note._id} />
-      ))}
+        {/* Looping thought notes array while calling the each note as note variable ( (note) => ) */}
+        {notes.map((note) => (
+          // Col is a bootstrap component
+          // The key prop is required by react to keep track of the elements in the list
+          // We can use the _id field of the note object of each iteration as the key because it is unique
+          <Col key={note._id}>
+            {/* This <Note /> component is the one we created in the Note.tsx file */}
+            {/* We can pass the note object of each iteration as a prop to the Note component */}
+            <Note note={note} />
+          </Col>
+        ))}
+      </Row>
     </Container>
   );
 }
