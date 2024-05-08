@@ -282,3 +282,11 @@ We have already imported `NotesPage.module.css` as `styles` to the `App.tsx` fil
 ```tsx
 <Note note={note} className={styles.note} >
 ```
+
+## Formatting Time Stamps
+
+We need to format the time stamps that we are displaying in the footer section of the Note components.
+
+When a note is created the timestamp should shown with the prefix createdAt and when a note gets updated it should be shown with the updatedAt prefix.
+
+For all kinds of utility functions we can create a new directory called `utils` under the `src` directory. And inside `utils` we can create a new file called `formatDate.ts` for the formatting function.
