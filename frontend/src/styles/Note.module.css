@@ -10,3 +10,11 @@
   /* We there are multiple lines in a text, each line should start in a new line.*/
   white-space: pre-line;
 }
+
+.cardBody {
+  /* Hides the text that will overflow from the Card Body */
+  overflow: hidden;
+  /* Adding a gradient to the bottom of the card */
+  /* So when the text is too long, even it is hidden the gradient will be shown to indicate there is more to the text */
+  mask-image: linear-gradient(180deg, black 60%, transparent);
+}

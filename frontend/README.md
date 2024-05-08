@@ -229,9 +229,56 @@ We can create a css module as `Note.module.css` to the Note react component we c
 Import the `Note.module.css` file to the `Note.tsx` file.
 
 ```tsx
-
+import styles from "../styles/Note.module.css";
 ```
 
 ## Layout of the Application
 
 We can find more about layouts we can have using the [documentation](https://react-bootstrap.netlify.app/docs/layout/grid).
+
+## Passing multiple classNames to a Component
+
+We want to set the height of the note components to be same as each other and give all of them a drop shadow when hovering. But we are not going to add those css styling to the `Note.module.css` file.
+
+Because we might need to display the note component differently in multiple palaces. Those styles that may differ will be added to separate css file/s.
+
+Here we are going to create another css module in `styles` directory called `NotesPage.module.css`. This will contain css for the notes that applied only when they are used in the Note Page.
+
+We are going to import `NotesPage.module.css` to `App.tsx` file.
+
+```tsx
+import styles from "./styles/NotesPage.module.css";
+```
+
+> [!NOTE]
+> For now we have the Note Page in the `App.tsx` file. Later we make a separate component to it.
+
+First, we need to pass the class name to the Note component we create and export in `Note.tsx` file.
+
+1. Add the className to the interface
+
+```tsx
+interface NoteProps {
+  note: NoteModel;
+  className?: string;
+}
+```
+
+2. We need to pass `className` as an argument next to `note`. Then add multiple classes by adding it as a string inside battiks ( **``** ). Battiks allows us to write variables inside strings. We need to use ${var} to define variables inside battiks.
+
+```tsx
+const Note = ({ note, className }: NoteProps) => {
+return (
+    <Card className={`${styles.noteCard} ${className}`}>
+```
+
+Now, we can add the className property to the Note component in the `App.tsx` file.
+
+We have already imported `NotesPage.module.css` as `styles` to the `App.tsx` file. We need to push the className in the `styles` that we want use here.
+
+> [!NOTE]
+> When we add `.note` , `.note:hover` will be automatically added.
+
+```tsx
+<Note note={note} className={styles.note} >
+```

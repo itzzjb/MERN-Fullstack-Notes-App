@@ -9,6 +9,9 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Note as NoteModel } from "./models/notes";
 import Note from "./components/Note";
 
+// We need to import the styles from the NotesPage.module.css file
+import styles from "./styles/NotesPage.module.css";
+
 function App() {
   // Here we want something to save the current state of the application
   // We need to notify react to reach out to UI to display the new values
@@ -76,7 +79,9 @@ function App() {
           <Col key={note._id}>
             {/* This <Note /> component is the one we created in the Note.tsx file */}
             {/* We can pass the note object of each iteration as a prop to the Note component */}
-            <Note note={note} />
+            {/* We passed the .note and .note:hover classes to the Note component to add some styles */}
+            {/* As we defined adding a className is optional here*/}
+            <Note note={note} className={styles.note} />
           </Col>
         ))}
       </Row>

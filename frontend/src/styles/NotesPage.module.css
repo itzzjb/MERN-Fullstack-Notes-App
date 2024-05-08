@@ -1,0 +1,15 @@
+.note {
+  /* Fixing the height of all notes */
+  height: 200px;
+  /* Giving a minimum width so when the screen get very small notes won't shrink after a certain point */
+  min-width: 150px;
+  /* Making the hover effect smoother */
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.note:hover {
+  box-shadow: rgba(255, 255, 255, 0.5) 0px 6px 24px 0px,
+    rgba(255, 255, 255, 0.5) 0px 0px 0px 1px;
+  /* Cursor changes to pointer when hovering over the note */
+  cursor: pointer;
+}
