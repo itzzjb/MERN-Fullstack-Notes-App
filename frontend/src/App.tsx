@@ -6,6 +6,9 @@ import React, { useEffect, useState } from "react";
 import { Note as NoteModel } from "./models/notes";
 import Note from "./components/Note";
 
+// Imported the Container component from react-bootstrap
+import { Container } from "react-bootstrap";
+
 function App() {
   // Here we want something to save the current state of the application
   // We need to notify react to reach out to UI to display the new values
@@ -56,7 +59,7 @@ function App() {
 
   // The return statement returns the actual UI element
   return (
-    <div>
+    <Container>
       {/* Displaying the notes using the note card components we created  */}
       {/* Map allows us to get some specific data (like the array of notes here) and turn it into something different (like notes component)*/}
       {/* We can use the map function to loop over the notes array and return a Note component for each note */}
@@ -69,7 +72,7 @@ function App() {
         // We can use the _id field of the note object of each iteration as the key because it is unique
         <Note note={note} key={note._id} />
       ))}
-    </div>
+    </Container>
   );
 }
 
