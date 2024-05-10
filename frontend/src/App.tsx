@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 // Imported the Container, Row, Col components from react-bootstrap
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 
 // We need to import the Note interface from the notes.ts file
 // We are using an alias called NoteModel here because the Note type and the Note function have the same name
@@ -15,6 +15,9 @@ import styles from "./styles/NotesPage.module.css";
 // We are importing all the functions from the notesApi.ts file
 import * as NotesApi from "./network/notesApi";
 
+// Imported AddNoteDialog component from the AddNoteDialog.tsx file
+import AddNoteDialog from "./components/AddNoteDialog";
+
 function App() {
   // Here we want something to save the current state of the application
   // We need to notify react to reach out to UI to display the new values
@@ -25,6 +28,10 @@ function App() {
   // Because we are importing the notes from the notes.ts file as an array , we are using a empty array as the initial value
   // We also need to define the type of the state variable as an array of Note objects (<Note[]>)
   const [notes, setNotes] = useState<NoteModel[]>([]);
+
+  // We are creating another state to tell react whether to open the create note modal or not (AddNoteDialog component)
+  // We are defining the showAddNoteDialog state variable is a boolean and it's default value is false
+  const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
 
   // We only want to fetch the notes once when the component is mounted
   // It should happen automatically without us needing to click a button (do anything)
@@ -64,6 +71,12 @@ function App() {
   return (
     // Container is a bootstrap component. This will add some padding to the sides of the page
     <Container>
+      {/* We need a Button to change the value of showAddDialog state variable so it can be visible conditionally */}
+      {/* We are using a react component called a Button */}
+      {/* We are using a onClick event listener here to pass a arrow function to call the setShowAddDialog state function */}
+      {/* So, when the button is clicked, the setShowAddDialog state function will be called and set the value to true */}
+      <Button onClick={() => setShowAddNoteDialog(true)}>Add New Note</Button>
+
       {/* Row is a bootstrap component */}
       {/* We need to define how many columns per each row we should have in different different screen sizes when using the application*/}
       <Row xs={1} md={2} xl={3}>
@@ -85,6 +98,17 @@ function App() {
           </Col>
         ))}
       </Row>
+
+      {/* There is a way to show react ui components conditionally in the screen */}
+      {/* We are using the state variable and && operator. */}
+      {/* Now only when the state variable is true, the component will be rendered */}
+      {showAddNoteDialog && <AddNoteDialog />}
+
+      {/* There is another way to show the component conditionally in the screen */}
+      {/* We can pass a boolean value to the component as a prop */}
+      {/* Then we can use a 'show' property inside the component, so it will be rendered only when the boolean value is true */}
+      {/* But in that way even we closed the modal, the data we typing on the form will be there */}
+      {/* But when we are using this method the data will be automatically cleared */}
     </Container>
   );
 }
