@@ -102,7 +102,11 @@ function App() {
       {/* There is a way to show react ui components conditionally in the screen */}
       {/* We are using the state variable and && operator. */}
       {/* Now only when the state variable is true, the component will be rendered */}
-      {showAddNoteDialog && <AddNoteDialog />}
+      {showAddNoteDialog && (
+        // We are passing setShowAddNoteDialog function as a prop to the AddNoteDialog component
+        // Now, when onDismiss triggers, the setShowAddNoteDialog function will be called and the value will be set to false
+        <AddNoteDialog onDismiss={() => setShowAddNoteDialog(false)} />
+      )}
 
       {/* There is another way to show the component conditionally in the screen */}
       {/* We can pass a boolean value to the component as a prop */}
