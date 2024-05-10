@@ -318,9 +318,13 @@ For handle this, we need throw an error from the frontend when we receive a erro
 
 We are going to use a react-bootstrap component called **Modals** to build the create note form. This is like a popup window that we can put the form on top it.
 
-For more details about modals we can refer to the [documentation](https://react-bootstrap.netlify.app/docs/components/modal/).
+For more details about Modals we can refer to the [documentation](https://react-bootstrap.netlify.app/docs/components/modal/).
 
 We can create a new file called `AddNoteDialog.tsx` in the `components` directory.
 
 > [!TIP]
 > We can use **Simple React Snippets** extension on VSCode. So, we can use shortcuts when writing stuff like import statements and creating components etc.
+
+For forms, we are going to use react-bootstrap component called **Forms**.
+
+For more details about Forms we can refer to the [documentation](https://react-bootstrap.netlify.app/docs/forms/overview).
