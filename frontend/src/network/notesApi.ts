@@ -1,4 +1,4 @@
-import { Note as NoteModel } from "../models/notes";
+import { Note, Note as NoteModel } from "../models/notes";
 
 // We need to create a wrapper around the fetch function to throw some errors if the response is not ok
 // We don't have to export the fetchData function because we are not using it in any other file
@@ -34,5 +34,36 @@ export async function fetchNotes(): Promise<NoteModel[]> {
     method: "GET",
   });
   // Now we need to return the data from the response
+  return response.json();
+}
+
+// We can create a interface to define the shape of the note object
+// We are going to export this interface so we can use it in other files
+export interface NoteInput {
+  title: string;
+  // ? means that the text is optional
+  text?: string;
+}
+
+// We need to create a function to create a new note
+// We are going to export this function so we can use it in other files
+// This function requires a note object in the type of NoteInput as an argument and it will return a promise that will return the created note
+export async function createNote(note: NoteInput): Promise<Note> {
+  // We are using the post endpoint to create a new note
+  // We are using the above fetchData function to make the request so the error handling will be done there
+  const response = await fetchData("/api/notes", {
+    method: "POST",
+    // The headers are used to specify the content type of the request
+    // Tells the backend what kind of data we are sending from the frontend
+    headers: {
+      "Content-Type": "application/json",
+    },
+    // We are passing the note object as the body of the request
+    // We need to stringify the note object because we only can send strings back and forth between the frontend and the backend
+    body: JSON.stringify(note),
+  });
+  // Now we need to return the data from the response
+  // This contains the newly created note
+  // Because we send note object in the body of the request from the backend when a new note is created
   return response.json();
 }
