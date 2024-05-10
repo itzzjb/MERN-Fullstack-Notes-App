@@ -12,6 +12,9 @@ import Note from "./components/Note";
 // We need to import the styles from the NotesPage.module.css file
 import styles from "./styles/NotesPage.module.css";
 
+// We need to import the styleUtils from the styles/utils.module.css file
+import styleUtils from "./styles/utils.module.css";
+
 // We are importing all the functions from the notesApi.ts file
 import * as NotesApi from "./network/notesApi";
 
@@ -75,7 +78,16 @@ function App() {
       {/* We are using a react component called a Button */}
       {/* We are using a onClick event listener here to pass a arrow function to call the setShowAddDialog state function */}
       {/* So, when the button is clicked, the setShowAddDialog state function will be called and set the value to true */}
-      <Button onClick={() => setShowAddNoteDialog(true)}>Add New Note</Button>
+
+      <Button
+        onClick={() => setShowAddNoteDialog(true)}
+        // mt-4 is a margin top utility class in bootstrap and this will add a margin top of 4px
+        // We are using the blockCenter utility class to center the button horizontally
+        // We are using battiks method to add multiple classes to the button
+        className={`mt-4 ${styleUtils.blockCenter}`}
+      >
+        Add a new note
+      </Button>
 
       {/* Row is a bootstrap component */}
       {/* We need to define how many columns per each row we should have in different different screen sizes when using the application*/}
@@ -110,7 +122,15 @@ function App() {
           // We need to pass the onNoteSaved callback function to the AddNoteDialog component
           // This callback function will be called when a note is saved successfully
           // We can define what we need to do when a note is saved in the App component here
-          onNoteSaved={() => {}}
+          // First, we need to change the state of the notes application by fetching the notes again and setting the notes state variable
+          // Then, we need to close the AddNoteDialog component by changing the ShowAddNoteDialog state variable to true.
+          // We state changes react will automatically update the UI
+          onNoteSaved={(newNote) => {
+            // The [...notes, newNote] will create a new array and adds the newNote to the array
+            // Then we are setting the notes state variable to the new array
+            setNotes([...notes, newNote]);
+            setShowAddNoteDialog(false);
+          }}
         />
       )}
 

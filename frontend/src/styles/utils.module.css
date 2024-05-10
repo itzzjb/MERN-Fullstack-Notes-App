@@ -1,0 +1,9 @@
+/* We can use this css file to add the css reusable classes we are going to use again and again 
+in different different components of the application */
+
+/* This three attributes together will display whatever we use this class on  centered on the screen horizontally */
+.blockCenter {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

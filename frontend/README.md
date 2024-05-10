@@ -342,3 +342,9 @@ We need to install react hook form for the frontend.
 ```sh
 npm i react-hook-form
 ```
+
+## CSS utility modules
+
+There are css styles that we would need to use again and again for various components while building the application. So, these reusable utility classes can be added to a separate `utils.module.css` file inside the `styles` directory.
+
+## Update and Delete Notes from the frontend
