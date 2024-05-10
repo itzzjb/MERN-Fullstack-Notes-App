@@ -12,6 +12,9 @@ import Note from "./components/Note";
 // We need to import the styles from the NotesPage.module.css file
 import styles from "./styles/NotesPage.module.css";
 
+// We are importing all the functions from the notesApi.ts file
+import * as NotesApi from "./network/notesApi";
+
 function App() {
   // Here we want something to save the current state of the application
   // We need to notify react to reach out to UI to display the new values
@@ -35,14 +38,11 @@ function App() {
       // fetch call can send an error id something goes wrong
       // We can use try catch to handle the error
       try {
-        // We can use the get all notes endpoint to get all the notes
-        // We only need to set the /api/notes because we are using a proxy in the package.json file
-        const response = await fetch("/api/notes", {
-          method: "GET",
-        });
-        // Now we need to get the data from the response
         // This will pass the json body of the response to the notes variable
-        const notes = await response.json();
+        // We are using the fetchNotes function from the notesApi.ts file to get the notes
+        // We imported all the functions from the notesApi.ts file as NotesApi
+        const notes = await NotesApi.fetchNotes();
+
         // Now we need to set the notes state variable to the data
         // When the status of the state variable (notes) changes by (setNotes), react will automatically update the UI
         setNotes(notes);

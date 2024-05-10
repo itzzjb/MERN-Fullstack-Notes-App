@@ -290,3 +290,26 @@ We need to format the time stamps that we are displaying in the footer section o
 When a note is created the timestamp should shown with the prefix createdAt and when a note gets updated it should be shown with the updatedAt prefix.
 
 For all kinds of utility functions we can create a new directory called `utils` under the `src` directory. And inside `utils` we can create a new file called `formatDate.ts` for the formatting function.
+
+## Creating Notes from the Frontend
+
+We need to add a way to create notes from the frontend. We have all the endpoint we need and we only just need some sort of a form in our react app where we can enter new notes title and text and send them to our server.
+
+We have the `fetch` call in the `App.tsx` file now. We move this to a separate file for better organization. So, we don't have the endpoint and method string in our react component.
+
+We can create a new directory inside `src` directory called `network`. And there we can create a new file called `notes_api.ts`.
+
+> [!TIP] > `.tsx` files are there to build react components. For other functionalities we use `.ts` files.
+
+## Error Handling from React
+
+We are sending different types of status codes to the frontend with the responses to the http request. When there is an error, we send some specific status codes indicating that error. (We set them up manually while developing the backend)
+
+So, we need to handle those errors in the frontend correctly. Otherwise there won't be any indication about the error in the frontend and the application will be crashed. (Errors will only be displayed in the console if we don't handle them properly)
+
+We need to handle errors when the status code in `400` or `500`.
+
+- `400`: Bad request
+- `500`: Internal Server Error
+
+For handle this, we need throw an error from the frontend when we receive a error from backend. So, frontend will show error alerts for the user.
