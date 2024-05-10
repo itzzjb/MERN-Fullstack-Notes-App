@@ -328,3 +328,17 @@ We can create a new file called `AddNoteDialog.tsx` in the `components` director
 For forms, we are going to use react-bootstrap component called **Forms**.
 
 For more details about Forms we can refer to the [documentation](https://react-bootstrap.netlify.app/docs/forms/overview).
+
+## Handling Forms in React
+
+Handling forms manually in react can be bit tricky. Because we have to synchronize with the state, handle different types of errors etc.
+
+So, we usually use packages to handle these kinds of stuff. The most popular package is **React Hook Form**.
+
+If you want you can also read the [documentation](https://react-hook-form.com) in order to dive into more details.
+
+We need to install react hook form for the frontend.
+
+```sh
+npm i react-hook-form
+```

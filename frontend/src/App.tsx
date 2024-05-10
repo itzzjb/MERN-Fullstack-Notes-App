@@ -103,9 +103,15 @@ function App() {
       {/* We are using the state variable and && operator. */}
       {/* Now only when the state variable is true, the component will be rendered */}
       {showAddNoteDialog && (
-        // We are passing setShowAddNoteDialog function as a prop to the AddNoteDialog component
-        // Now, when onDismiss triggers, the setShowAddNoteDialog function will be called and the value will be set to false
-        <AddNoteDialog onDismiss={() => setShowAddNoteDialog(false)} />
+        <AddNoteDialog
+          // We are passing setShowAddNoteDialog function as a prop to the AddNoteDialog component
+          // Now, when onDismiss triggers, the setShowAddNoteDialog function will be called and the value will be set to false
+          onDismiss={() => setShowAddNoteDialog(false)}
+          // We need to pass the onNoteSaved callback function to the AddNoteDialog component
+          // This callback function will be called when a note is saved successfully
+          // We can define what we need to do when a note is saved in the App component here
+          onNoteSaved={() => {}}
+        />
       )}
 
       {/* There is another way to show the component conditionally in the screen */}
