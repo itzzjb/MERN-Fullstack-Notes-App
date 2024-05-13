@@ -348,3 +348,5 @@ npm i react-hook-form
 There are css styles that we would need to use again and again for various components while building the application. So, these reusable utility classes can be added to a separate `utils.module.css` file inside the `styles` directory.
 
 ## Update and Delete Notes from the frontend
+
+To update and Delete notes we need to create more functions in `notesApi.ts` file.

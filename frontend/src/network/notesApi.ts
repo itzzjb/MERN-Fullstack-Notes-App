@@ -67,3 +67,14 @@ export async function createNote(note: NoteInput): Promise<Note> {
   // Because we send note object in the body of the request from the backend when a new note is created
   return response.json();
 }
+
+// We need to create a function to delete a note
+// We are going to export this function so we can use it in other files
+// This function requires an id of the note as an argument that of the note to be deleted
+export async function deleteNote(id: string): Promise<void> {
+  // We are using the delete endpoint to delete a note
+  // We are using the above fetchData function to make the request so the error handling will be done there
+  await fetchData(`/api/notes/${id}`, {
+    method: "DELETE",
+  });
+}
