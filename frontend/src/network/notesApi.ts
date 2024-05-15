@@ -74,6 +74,7 @@ export async function createNote(note: NoteInput): Promise<Note> {
 export async function deleteNote(id: string): Promise<void> {
   // We are using the delete endpoint to delete a note
   // We are using the above fetchData function to make the request so the error handling will be done there
+  // We don't need to get a response back from the server when we delete a note
   await fetchData(`/api/notes/${id}`, {
     method: "DELETE",
   });

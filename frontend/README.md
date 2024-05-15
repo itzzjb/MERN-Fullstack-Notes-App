@@ -350,3 +350,15 @@ There are css styles that we would need to use again and again for various compo
 ## Update and Delete Notes from the frontend
 
 To update and Delete notes we need to create more functions in `notesApi.ts` file.
+
+## React Icons Package
+
+We can install the react-icons package to use different icons in our UI.
+
+To install react-icons we need to use the following command.
+
+```sh
+npm i react-icons
+```
+
+Now, we can import react-icons and use them in the `Note.tsx` file.

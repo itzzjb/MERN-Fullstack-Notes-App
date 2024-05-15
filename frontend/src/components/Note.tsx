@@ -11,6 +11,11 @@ import { Note as NoteModel } from "../models/notes";
 // Import the formatDate function from the formatDate.ts file
 import { formatDate } from "../utils/formatDate";
 
+// We need to import MdDelete icon from react-icons package
+// Md is short for Material Design
+// MdDelete is the material design delete icon from google
+import { MdDelete } from "react-icons/md";
+
 // To declare what types of data Note should receive, we need to create an interface.
 // Remember that this is only required in typescript because we depend on the types not like javascript.
 // We can create a type for the props here. It's short for properties.
@@ -60,7 +65,12 @@ const Note = ({ note, className }: NoteProps) => {
       {/* We use .cardBody class in order to add style to the Card Body so that will give a gradient effect and hide the overflown text  */}
       <Card.Body className={styles.cardBody}>
         {/* Getting the title and text from the note object we passed here */}
-        <Card.Title>{note.title}</Card.Title>
+        <Card.Title>
+          {note.title}
+          {/* We can use the MdDelete icon here */}
+          {/* We can use react library classes here */}
+          <MdDelete className="text-muted " />
+        </Card.Title>
         <Card.Text className={styles.cardText}>{note.text}</Card.Text>
       </Card.Body>
       {/*Adding the timestamp of the note in the footer*/}
