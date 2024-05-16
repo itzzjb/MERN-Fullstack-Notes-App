@@ -1,6 +1,9 @@
 // We need to import the styles from the Note.module.css file
 import styles from "../styles/Note.module.css";
 
+// We need to import the styleUtils from the styles/utils.module.css file
+import styleUtils from "../styles/utils.module.css";
+
 // We need to import the Card component from react-bootstrap
 import { Card } from "react-bootstrap";
 
@@ -25,6 +28,9 @@ interface NoteProps {
   // className will get a class with styles from a css file
   // We used ? to make the className optional
   className?: string;
+  // We need to add onDeleteNoteClicked callback function to the NoteProps interface
+  // We need to pass the note object to the function when the icon is clicked
+  onDeleteNoteClicked: (note: NoteModel) => void;
 }
 
 // We can create a function to return the UI element for each note
@@ -34,7 +40,8 @@ interface NoteProps {
 // We need to pass the className as an argument to the function too.
 // Note: When arguments that we pass to a function changes react knows that it needs to re-render the component in the UI with the new values
 // If we made a change to the note object, react will automatically update the UI
-const Note = ({ note, className }: NoteProps) => {
+// We need to pass the onDeleteNoteClicked callback function as an argument to the function too.
+const Note = ({ note, className, onDeleteNoteClicked }: NoteProps) => {
   // Here we can declare the ui for the note
   // We can get a code to a card template from react bootstrap website too
 
@@ -65,11 +72,30 @@ const Note = ({ note, className }: NoteProps) => {
       {/* We use .cardBody class in order to add style to the Card Body so that will give a gradient effect and hide the overflown text  */}
       <Card.Body className={styles.cardBody}>
         {/* Getting the title and text from the note object we passed here */}
-        <Card.Title>
+        {/* We need to give flexbox support to the ms-auto class style used in MdDelete icon */}
+        {/* We can use the styleUtils object to get a flexCenter class from the utils.module.css file */}
+        <Card.Title className={styleUtils.flexCenter}>
           {note.title}
           {/* We can use the MdDelete icon here */}
-          {/* We can use react library classes here */}
-          <MdDelete className="text-muted " />
+          <MdDelete
+            // We can use react library classes here
+            // text-muted will add a blur ash effect to the icon
+            // ml-auto will add a margin to the left of a element in the container
+            // The container in this case is the Card.Title element should (Card.Title) support flexbox.
+            className="text-muted ml-auto"
+            // Now we need to add a function to delete the note when the icon is clicked
+            onClick={(e) => {
+              // We need to do two things when the icon is clicked
+              // We need to trigger a callback function that will be executed when a note is deleted
+              // We need to add onDeleteNoteClicked callback function to the NoteProps interface
+              onDeleteNoteClicked(note);
+              // Later when we click on a note we are going to display the update notes dialog
+              // Because delete icon is also on top of the note title, we need to make sure that the dialog is not opened when the delete icon is clicked
+              // onClick can take an argument called event (e)
+              // We are going to call the stopPropagation function on the event object to stop the event from bubbling up
+              e.stopPropagation();
+            }}
+          />
         </Card.Title>
         <Card.Text className={styles.cardText}>{note.text}</Card.Text>
       </Card.Body>

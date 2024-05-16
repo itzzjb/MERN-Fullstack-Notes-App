@@ -70,6 +70,25 @@ function App() {
     // For example, we can add the notes array as a dependency to make sure the function is only called when the notes array changes
   }, []);
 
+  // We need to create a function to delete a note that we are going to pass to the Note component
+  async function deleteNote(note: NoteModel) {
+    try {
+      // We are using the deleteNote function from the notesApi.ts file to delete the note
+      await NotesApi.deleteNote(note._id);
+
+      // We need to update the state of the notes application by fetching the notes again
+      // We are using the fetchNotes function from the notesApi.ts file to get the notes
+      const notes = await NotesApi.fetchNotes();
+
+      // We need to set the notes state variable to the new notes array
+      // When the state of the notes variable changes, react will automatically update the UI
+      setNotes(notes);
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  }
+
   // The return statement returns the actual UI element
   return (
     // Container is a bootstrap component. This will add some padding to the sides of the page
@@ -106,7 +125,14 @@ function App() {
             {/* We can pass the note object of each iteration as a prop to the Note component */}
             {/* We passed the .note and .note:hover classes to the Note component to add some styles */}
             {/* As we defined adding a className is optional here*/}
-            <Note note={note} className={styles.note} />
+            <Note
+              note={note}
+              className={styles.note}
+              // We need to add onDeleteNoteClicked callback function here
+              // We can define the function here and pass it as a prop to the Note component
+              // But because this function is a complex function, we can define it outside the return statement
+              onDeleteNoteClicked={deleteNote}
+            />
           </Col>
         ))}
       </Row>
