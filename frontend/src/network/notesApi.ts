@@ -79,3 +79,26 @@ export async function deleteNote(id: string): Promise<void> {
     method: "DELETE",
   });
 }
+
+// We need to create a function to update a note
+// We are going to export this function so we can use it in other files
+// This function requires an id of the note as an argument that of the note to be updated
+// And it requires the updated note object in the type of NoteInput as an argument
+export async function updateNote(
+  noteId: string,
+  note: NoteInput
+): Promise<NoteModel> {
+  // We are using the put endpoint to update a note
+  // We are using the above fetchData function to make the request so the error handling will be done there
+  const response = await fetchData(`/api/notes/${noteId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(note),
+  });
+  // Now we need to return the data from the response
+  // This contains the updated note
+  // Because we send the updated note object in the body of the request from the backend when a note is updated
+  return response.json();
+}

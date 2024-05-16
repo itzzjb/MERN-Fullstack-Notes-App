@@ -19,7 +19,7 @@ import styleUtils from "./styles/utils.module.css";
 import * as NotesApi from "./network/notesApi";
 
 // Imported AddNoteDialog component from the AddNoteDialog.tsx file
-import AddNoteDialog from "./components/AddNoteDialog";
+import AddEditNoteDialog from "./components/AddEditNoteDialog";
 
 // Need to import the Plus icon from the react-icons/fa file
 import { FaPlus } from "react-icons/fa";
@@ -148,7 +148,7 @@ function App() {
       {/* We are using the state variable and && operator. */}
       {/* Now only when the state variable is true, the component will be rendered */}
       {showAddNoteDialog && (
-        <AddNoteDialog
+        <AddEditNoteDialog
           // We are passing setShowAddNoteDialog function as a prop to the AddNoteDialog component
           // Now, when onDismiss triggers, the setShowAddNoteDialog function will be called and the value will be set to false
           onDismiss={() => setShowAddNoteDialog(false)}

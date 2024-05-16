@@ -5,9 +5,15 @@ import { useForm } from "react-hook-form";
 import { NoteInput } from "../network/notesApi";
 // Importing all the functions from the notesApi.ts file
 import * as NotesApi from "../network/notesApi";
+import { title } from "process";
 
 // We need to add an interface because we need to pass some data here
-interface AddNoteDialogProps {
+interface AddEditNoteDialogProps {
+  // We are passing noteToEdit as a prop to the AddNoteDialog component
+  // This is an optional prop because we are going to use the same component to add and edit the note
+  // It won't be defined when we are adding a new note
+  noteToEdit?: NoteModel;
+
   // We need to close the modal when the user clicks on the close button
   // When we click outside of the dialog or if we click the close button, the dialog should close
   // We are using a call back function
@@ -22,7 +28,12 @@ interface AddNoteDialogProps {
 // The callback function will be passed as a prop to the AddNoteDialog component
 // And we pass in the type of the function as AddNoteDialogProps
 // We are also going to pass onNoteSaved callback function to AddNoteDialog component too.
-const AddNoteDialog = ({ onDismiss, onNoteSaved }: AddNoteDialogProps) => {
+// We renamed AddNoteDialog to AddEditNoteDialog because we are going to use the same component to edit the note too (add and update)
+const AddEditNoteDialog = ({
+  noteToEdit,
+  onDismiss,
+  onNoteSaved,
+}: AddEditNoteDialogProps) => {
   // Now we can use react-hook-forms here.
   // There is a special hook we can use called useForm
   // This hook returns a bunch of data and functions and objects that we can use to create a form
@@ -34,7 +45,16 @@ const AddNoteDialog = ({ onDismiss, onNoteSaved }: AddNoteDialogProps) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<NoteInput>();
+  } = useForm<NoteInput>({
+    defaultValues: {
+      // If we are trying to edit a note, we need to set the default values of the form fields
+      // Otherwise, we need to set the default values to empty strings
+      // So when we are viewing the dialog to add a new note, the input fields will be empty
+      // And when we are viewing the dialog to edit a note, the input fields will be filled with the note data
+      title: noteToEdit?.title || "",
+      text: noteToEdit?.text || "",
+    },
+  });
 
   // Now, we create the function that actually handles the form submission and calling our API endpoint
   // This is a async function because we are going to make a async request to the backend
@@ -42,9 +62,20 @@ const AddNoteDialog = ({ onDismiss, onNoteSaved }: AddNoteDialogProps) => {
   async function onSubmit(input: NoteInput) {
     // Here we are using a try catch block to handle the error that comes from the backend
     try {
-      // When we create a note we get the created note as a response
-      // We are calling the createNote function from the notesApi.ts file while passing the input data and getting the response
-      const noteResponse = await NotesApi.createNote(input);
+      // First we need to refine a variable to store the response
+      let noteResponse: NoteModel;
+
+      // We need to check if we are editing a note or adding a new note
+      // When noteToEdit is defined (true), we are editing a note otherwise we are adding a new note
+      if (noteToEdit) {
+        // We are using the updateNote function from the notesApi.ts file to update the note
+        // We are passing the noteToEdit._id as the first argument and the input as the second argument
+        noteResponse = await NotesApi.updateNote(noteToEdit._id, input);
+      } else {
+        // We are using the createNote function from the notesApi.ts file to create a new note
+        // We are passing the input as the argument
+        noteResponse = await NotesApi.createNote(input);
+      }
       // Sending the noteResponse to the onNoteSaved callback function
       onNoteSaved(noteResponse);
     } catch (error) {
@@ -63,7 +94,11 @@ const AddNoteDialog = ({ onDismiss, onNoteSaved }: AddNoteDialogProps) => {
     <Modal show onHide={onDismiss}>
       {/* We need to add a close button. This will add the "x" in the top right corner of the header of the modal */}
       <Modal.Header closeButton>
-        <Modal.Title>Add Note</Modal.Title>
+        <Modal.Title>
+          {/* We need to change the name of the dialog depending whether we are trying to add or edit a note */}
+          {/* Ternary operation can be used to implement this behavior */}
+          {noteToEdit ? "Edit Note" : "Add Note"}
+        </Modal.Title>
       </Modal.Header>
 
       {/* Adding the Form react-bootstrap component */}
@@ -150,4 +185,4 @@ const AddNoteDialog = ({ onDismiss, onNoteSaved }: AddNoteDialogProps) => {
 };
 
 // We need to export the component so that it can be used in other files
-export default AddNoteDialog;
+export default AddEditNoteDialog;
