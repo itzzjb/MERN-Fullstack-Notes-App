@@ -23,6 +23,7 @@ import AddEditNoteDialog from "./components/AddEditNoteDialog";
 
 // Need to import the Plus icon from the react-icons/fa file
 import { FaPlus } from "react-icons/fa";
+import { set } from "react-hook-form";
 
 function App() {
   // Here we want something to save the current state of the application
@@ -38,6 +39,12 @@ function App() {
   // We are creating another state to tell react whether to open the create note modal or not (AddNoteDialog component)
   // We are defining the showAddNoteDialog state variable is a boolean and it's default value is false
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
+
+  // We need a state to store the noteId of the note that is clicked
+  // We are defining that the noteToEdit state variable is a NoteModel or null and it's default value is null
+  const [noteToEdit, setNoteToEdit] = useState<NoteModel | null>(null);
+
+  // We need a state to store the note that is clicked
 
   // We only want to fetch the notes once when the component is mounted
   // It should happen automatically without us needing to click a button (do anything)
@@ -139,6 +146,9 @@ function App() {
               // We can define the function here and pass it as a prop to the Note component
               // But because this function is a complex function, we can define it outside the return statement
               onDeleteNoteClicked={deleteNote}
+              // We need to add onNoteClicked callback function here
+              // We need a state to store the noteId of the note that is clicked
+              onNoteClicked={(note) => setNoteToEdit(note)}
             />
           </Col>
         ))}
@@ -163,6 +173,39 @@ function App() {
             // Then we are setting the notes state variable to the new array
             setNotes([...notes, newNote]);
             setShowAddNoteDialog(false);
+          }}
+        />
+      )}
+
+      {/* Using the same method as above we need to show the AddEditNoteDialog component only if the noteToEdit variable is defined  */}
+      {noteToEdit && (
+        <AddEditNoteDialog
+          // We need to pass the noteToEdit to the AddEditNoteDialog component
+          // We are sure that the noteToEdit is not null here
+          noteToEdit={noteToEdit}
+          // Now, when onDismiss triggers, the setNoteToEdit function will be called and the value will be set to null
+          onDismiss={() => setNoteToEdit(null)}
+          // We need to pass the onNoteSaved callback function to the AddEditNoteDialog component
+          // This callback function will be called when a note is updated successfully
+          onNoteSaved={(updatedNote) => {
+            // We need to display the updated note in the UI
+            // We can do this by updating the notes state variable
+            // We can use map to loop over the notes array and replace the updated note with the old note
+            // We can use the _id field to identify the note
+            setNotes(
+              notes.map((existingNote) =>
+                // We care using a ternary operator here to check if the existingNote is the updatedNote
+                // So basically, the map will iterate over the notes array and return a new array
+                // Only the existingNote that has the same _id as the updatedNote will be replaced with the updatedNote
+                // So we will get a new array with the updated note replacing the old note
+                existingNote._id === updatedNote._id
+                  ? updatedNote
+                  : existingNote
+              )
+            );
+
+            // We need to set NoteToEdit to null to close the dialog
+            setNoteToEdit(null);
           }}
         />
       )}

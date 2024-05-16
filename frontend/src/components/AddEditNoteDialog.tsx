@@ -109,7 +109,7 @@ const AddEditNoteDialog = ({
         {/* And here we want to pass the handleSubmit from react-hook-forms */}
         {/* We are passing the onSubmit function to the Form component. This is the function that we created above */}
         {/* handleSubmit will connect our form to the react-hook-forms and after some background tasks it will call our own onSubmit function */}
-        <Form id="addNoteForm" onSubmit={handleSubmit(onSubmit)}>
+        <Form id="addEditNoteForm" onSubmit={handleSubmit(onSubmit)}>
           {/* First, we need a Form.Group for the Label */}
           {/* mb-3 is a bootstrap library class that adds margin bottom of 3px */}
           <Form.Group className="mb-3">
@@ -170,7 +170,7 @@ const AddEditNoteDialog = ({
         {/* We can use another property called form and set an id to the form and pass it to connect the Form to the Button */}
         <Button
           type="submit"
-          form="addNoteForm"
+          form="addEditNoteForm"
           // We need to disable the button when the form is submitting
           // isSubmitting is a property that we get from the react-hook-forms
           // This will remain true until the form us being submitted

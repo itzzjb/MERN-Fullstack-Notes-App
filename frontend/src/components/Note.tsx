@@ -31,6 +31,9 @@ interface NoteProps {
   // We need to add onDeleteNoteClicked callback function to the NoteProps interface
   // We need to pass the note object to the function when the icon is clicked
   onDeleteNoteClicked: (note: NoteModel) => void;
+  // We need another callback to open the dialog when the note is clicked
+  // We need to pass the note object to the function when the note is clicked
+  onNoteClicked: (note: NoteModel) => void;
 }
 
 // We can create a function to return the UI element for each note
@@ -40,8 +43,13 @@ interface NoteProps {
 // We need to pass the className as an argument to the function too.
 // Note: When arguments that we pass to a function changes react knows that it needs to re-render the component in the UI with the new values
 // If we made a change to the note object, react will automatically update the UI
-// We need to pass the onDeleteNoteClicked callback function as an argument to the function too.
-const Note = ({ note, className, onDeleteNoteClicked }: NoteProps) => {
+// We need to pass the onDeleteNoteClicked and onNoteClicked callback functions as an arguments to the function too.
+const Note = ({
+  note,
+  className,
+  onDeleteNoteClicked,
+  onNoteClicked,
+}: NoteProps) => {
   // Here we can declare the ui for the note
   // We can get a code to a card template from react bootstrap website too
 
@@ -68,7 +76,12 @@ const Note = ({ note, className, onDeleteNoteClicked }: NoteProps) => {
     // We can use the className prop to add a classes
     // This is called className instead of class because class is a reserved keyword in javascript
     // We can use the styles object to get the class from the css file
-    <Card className={`${styles.noteCard} ${className}`}>
+    <Card
+      className={`${styles.noteCard} ${className}`}
+      // We care going to add an onClick event to the card and call the onNoteClicked function
+      // We need to pass the note object to the function when the card is clicked
+      onClick={() => onNoteClicked(note)}
+    >
       {/* We use .cardBody class in order to add style to the Card Body so that will give a gradient effect and hide the overflown text  */}
       <Card.Body className={styles.cardBody}>
         {/* Getting the title and text from the note object we passed here */}
