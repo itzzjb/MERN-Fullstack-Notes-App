@@ -21,6 +21,9 @@ import * as NotesApi from "./network/notesApi";
 // Imported AddNoteDialog component from the AddNoteDialog.tsx file
 import AddNoteDialog from "./components/AddNoteDialog";
 
+// Need to import the Plus icon from the react-icons/fa file
+import { FaPlus } from "react-icons/fa";
+
 function App() {
   // Here we want something to save the current state of the application
   // We need to notify react to reach out to UI to display the new values
@@ -103,8 +106,12 @@ function App() {
         // mt-4 is a margin top utility class in bootstrap and this will add a margin top of 4px
         // We are using the blockCenter utility class to center the button horizontally
         // We are using battiks method to add multiple classes to the button
-        className={`mt-4 ${styleUtils.blockCenter}`}
+        // We need to add the flexCenter class to the button so it will add the gap of 4px and center the icon and text
+        className={`mt-4 ${styleUtils.blockCenter} ${styleUtils.flexCenter}`}
       >
+        {/* We are using the FaPlus icon from the react-icons/fa file */}
+        {/* We can use the styleUtils.icon class to add some styles to the icon */}
+        <FaPlus />
         Add a new note
       </Button>
 
