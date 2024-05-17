@@ -362,3 +362,12 @@ npm i react-icons
 ```
 
 Now, we can import react-icons and use them in the `Note.tsx` file.
+
+## Loading / Error / Empty states to the UI
+
+When we are developing, we normally don't have loading problems because localhost is really fast.
+
+But, when we actually deploy this onto a server, this might take a moment.
+
+> [!TIP]
+> We can add a spinner to indicate loading and we can also add a text if error happens like loading went wrong.

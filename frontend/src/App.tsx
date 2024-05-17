@@ -1,8 +1,8 @@
 // We need to import useState, useEffect from react to use the state
 import React, { useEffect, useState } from "react";
 
-// Imported the Container, Row, Col components from react-bootstrap
-import { Button, Col, Container, Row } from "react-bootstrap";
+// Imported the Container, Row, Col, Spinner components from react-bootstrap
+import { Button, Col, Container, Row, Spinner } from "react-bootstrap";
 
 // We need to import the Note interface from the notes.ts file
 // We are using an alias called NoteModel here because the Note type and the Note function have the same name
@@ -23,7 +23,6 @@ import AddEditNoteDialog from "./components/AddEditNoteDialog";
 
 // Need to import the Plus icon from the react-icons/fa file
 import { FaPlus } from "react-icons/fa";
-import { set } from "react-hook-form";
 
 function App() {
   // Here we want something to save the current state of the application
@@ -44,7 +43,18 @@ function App() {
   // We are defining that the noteToEdit state variable is a NoteModel or null and it's default value is null
   const [noteToEdit, setNoteToEdit] = useState<NoteModel | null>(null);
 
-  // We need a state to store the note that is clicked
+  // We need another state to track the loading state of the notes
+  // We are initializing the notesLoading state variable as true because as soon as we open the page notes try to load
+  const [notesLoading, setNotesLoading] = useState(true);
+
+  // We also need a state to track the error state of the notes
+  // We are initializing the showNotesLoadingError state variable as false because we don't have an error at the beginning
+  const [showNotesLoadingError, setShowNotesLoadingError] = useState(false);
+
+  // Note : We can use the above notesLoading and showNotesLoadingError states to show UI elements conditionally.
+
+  // We need a state to track the search query
+  // We are defining the searchQuery state variable as a string and it's default value is an empty string
 
   // We only want to fetch the notes once when the component is mounted
   // It should happen automatically without us needing to click a button (do anything)
@@ -58,6 +68,17 @@ function App() {
       // fetch call can send an error id something goes wrong
       // We can use try catch to handle the error
       try {
+        // We need to handle notesLoading and showNotesLoadingError states here when we are trying to load notes
+
+        // We need to set the showNotesLoadingError state variable to false when we are trying to load notes
+        // This will make sure that the error message is not displayed when we are loading notes
+        // Such as in a scenario where the user tries to reload the notes if an error occurs
+        setShowNotesLoadingError(false);
+
+        // We need to set the notesLoading state variable to true when we are trying to load notes
+        // This will make sure that the spinner is displayed when we are loading notes
+        setNotesLoading(true);
+
         // This will pass the json body of the response to the notes variable
         // We are using the fetchNotes function from the notesApi.ts file to get the notes
         // We imported all the functions from the notesApi.ts file as NotesApi
@@ -69,7 +90,13 @@ function App() {
       } catch (error) {
         // For now wee can log the error to the console and send an alert (popup) to the user
         console.error(error);
-        alert(error);
+
+        // We need to set the showNotesLoadingError state variable to true when an error occurs
+        setShowNotesLoadingError(true);
+      } finally {
+        // We need to set the notesLoading state variable to false when we are done loading notes
+        // This will make sure that the progress bar is not displayed when we are done loading notes
+        setNotesLoading(false);
       }
     }
     // We need to call the fetchNotes function to make the request
@@ -99,6 +126,42 @@ function App() {
     }
   }
 
+  // We can separate the notes grid from the return statement to minimize the complexity of the return statement
+  // And this is also useful when we want to check the notesLoading and showNotesLoadingError states
+  const notesGrid = (
+    // Row is a bootstrap component
+    // We need to define how many columns per each row we should have in different different screen sizes when using the application
+    <Row xs={1} md={2} xl={3}>
+      {/* Displaying the notes using the note card components we created  */}
+      {/* Map allows us to get some specific data (like the array of notes here) and turn it into something different (like notes component)*/}
+      {/* We can use the map function to loop over the notes array and return a Note component for each note */}
+
+      {/* Looping thought notes array while calling the each note as note variable ( (note) => ) */}
+      {notes.map((note) => (
+        // Col is a bootstrap component
+        // The key prop is required by react to keep track of the elements in the list
+        // We can use the _id field of the note object of each iteration as the key because it is unique
+        <Col key={note._id}>
+          {/* This <Note /> component is the one we created in the Note.tsx file */}
+          {/* We can pass the note object of each iteration as a prop to the Note component */}
+          {/* We passed the .note and .note:hover classes to the Note component to add some styles */}
+          {/* As we defined adding a className is optional here*/}
+          <Note
+            note={note}
+            className={styles.note}
+            // We need to add onDeleteNoteClicked callback function here
+            // We can define the function here and pass it as a prop to the Note component
+            // But because this function is a complex function, we can define it outside the return statement
+            onDeleteNoteClicked={deleteNote}
+            // We need to add onNoteClicked callback function here
+            // We need a state to store the noteId of the note that is clicked
+            onNoteClicked={(note) => setNoteToEdit(note)}
+          />
+        </Col>
+      ))}
+    </Row>
+  );
+
   // The return statement returns the actual UI element
   return (
     // Container is a bootstrap component. This will add some padding to the sides of the page
@@ -116,43 +179,24 @@ function App() {
         // We need to add the flexCenter class to the button so it will add the gap of 4px and center the icon and text
         className={`mt-4 ${styleUtils.blockCenter} ${styleUtils.flexCenter}`}
       >
-        {/* We are using the FaPlus icon from the react-icons/fa file */}
-        {/* We can use the styleUtils.icon class to add some styles to the icon */}
+        {/* We are going to display the plus icon in the UI */}
         <FaPlus />
         Add a new note
       </Button>
 
-      {/* Row is a bootstrap component */}
-      {/* We need to define how many columns per each row we should have in different different screen sizes when using the application*/}
-      <Row xs={1} md={2} xl={3}>
-        {/* Displaying the notes using the note card components we created  */}
-        {/* Map allows us to get some specific data (like the array of notes here) and turn it into something different (like notes component)*/}
-        {/* We can use the map function to loop over the notes array and return a Note component for each note */}
+      {/* We are going to display the spinner which is a component from the bootstrap library when the notesLoading state var is true*/}
+      {notesLoading && <Spinner animation="border" variant="primary" />}
 
-        {/* Looping thought notes array while calling the each note as note variable ( (note) => ) */}
-        {notes.map((note) => (
-          // Col is a bootstrap component
-          // The key prop is required by react to keep track of the elements in the list
-          // We can use the _id field of the note object of each iteration as the key because it is unique
-          <Col key={note._id}>
-            {/* This <Note /> component is the one we created in the Note.tsx file */}
-            {/* We can pass the note object of each iteration as a prop to the Note component */}
-            {/* We passed the .note and .note:hover classes to the Note component to add some styles */}
-            {/* As we defined adding a className is optional here*/}
-            <Note
-              note={note}
-              className={styles.note}
-              // We need to add onDeleteNoteClicked callback function here
-              // We can define the function here and pass it as a prop to the Note component
-              // But because this function is a complex function, we can define it outside the return statement
-              onDeleteNoteClicked={deleteNote}
-              // We need to add onNoteClicked callback function here
-              // We need a state to store the noteId of the note that is clicked
-              onNoteClicked={(note) => setNoteToEdit(note)}
-            />
-          </Col>
-        ))}
-      </Row>
+      {/* We need to show a text in the UI if some error happens while loading the notes */}
+      {/* We are using html basic paragraph because it adds a text with little bit of margin below */}
+      {showNotesLoadingError && (
+        <p>Something went wrong. Please refresh the page.</p>
+      )}
+
+      {/* Now, we need to display the notesGrid is notesLoading is done (false) and showNotesLoadingError is false  */}
+      {/* Also we are going to show the notesGrid only if the notes array is not empty */}
+      {/* If the notes array is empty, we need to show a message to the user */}
+      {!notesLoading && !showNotesLoadingError && notesGrid}
 
       {/* There is a way to show react ui components conditionally in the screen */}
       {/* We are using the state variable and && operator. */}
