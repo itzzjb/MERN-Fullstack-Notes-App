@@ -196,7 +196,19 @@ function App() {
       {/* Now, we need to display the notesGrid is notesLoading is done (false) and showNotesLoadingError is false  */}
       {/* Also we are going to show the notesGrid only if the notes array is not empty */}
       {/* If the notes array is empty, we need to show a message to the user */}
-      {!notesLoading && !showNotesLoadingError && notesGrid}
+      {!notesLoading && !showNotesLoadingError && (
+        // This is called a fragment. It allows us to return multiple elements without adding an extra div
+        // We are using the <> </> syntax to wrap the notesGrid inside the fragment
+        // We can use a fragment to return multiple elements from a component
+        // We can also use a fragment to return multiple elements from a conditional statement
+        <>
+          {notes.length === 0 ? (
+            <p>No notes found. Please add a new note.</p>
+          ) : (
+            notesGrid
+          )}
+        </>
+      )}
 
       {/* There is a way to show react ui components conditionally in the screen */}
       {/* We are using the state variable and && operator. */}
