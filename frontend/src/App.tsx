@@ -131,7 +131,8 @@ function App() {
   const notesGrid = (
     // Row is a bootstrap component
     // We need to define how many columns per each row we should have in different different screen sizes when using the application
-    <Row xs={1} md={2} xl={3}>
+    // Adding some styles using g-4 bootstrap class and noteGrid class from the NotesPage.module.css file
+    <Row xs={1} md={2} xl={3} className={`g-4 ${styles.noteGrid}`}>
       {/* Displaying the notes using the note card components we created  */}
       {/* Map allows us to get some specific data (like the array of notes here) and turn it into something different (like notes component)*/}
       {/* We can use the map function to loop over the notes array and return a Note component for each note */}
@@ -165,7 +166,8 @@ function App() {
   // The return statement returns the actual UI element
   return (
     // Container is a bootstrap component. This will add some padding to the sides of the page
-    <Container>
+    // Adding some styles to the container using notesPage class from the NotesPage.module.css file
+    <Container className={styles.notesPage}>
       {/* We need a Button to change the value of showAddDialog state variable so it can be visible conditionally */}
       {/* We are using a react component called a Button */}
       {/* We are using a onClick event listener here to pass a arrow function to call the setShowAddDialog state function */}

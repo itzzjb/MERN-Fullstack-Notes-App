@@ -13,3 +13,18 @@
   /* Cursor changes to pointer when hovering over the note */
   cursor: pointer;
 }
+
+.notesPage {
+  /* Making all the items in the notesPage centered */
+  /* We are using flexbox to center the items */
+  /* Spinner and the error messages will be centered too */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noteGrid {
+  /* If there are 1 or 2 notes in the array and doesn't fill the whole width of the device display (different display sizes) ...  */
+  /* ... we need to center the available notes. */
+  width: 100%;
+}
