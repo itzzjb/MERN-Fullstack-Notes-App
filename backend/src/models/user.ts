@@ -4,11 +4,12 @@
 import { InferSchemaType, model, Schema } from "mongoose";
 
 const userSchema = new Schema({
-  username: { type: String, required: true },
   // We need to add select: false to the password field and the email field
+  // We also need to add unique: true to the email and username fields
+  username: { type: String, required: true, unique: true },
   // This means when we retrieve the user from the database, the password and email fields will not be included
   // If we wan't them we need to explicitly ask for them
-  email: { type: String, required: true, select: false },
+  email: { type: String, required: true, select: false, unique: true },
   password: { type: String, required: true, select: false },
 });
 

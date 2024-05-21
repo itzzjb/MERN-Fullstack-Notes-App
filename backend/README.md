@@ -390,3 +390,7 @@ Users need to sign-up for the app and every user must see only the notes belong 
 When a user sign-up in a website we need to save them in the database. So we need another mongoose schema.
 
 We can create a new model called `user.ts` inside `models` directory.
+
+Then we need to create the endpoints for user.
+
+First, we are going to create the sign-up endpoint. So let's create `usersControllers.ts` file inside the `controllers` directory.
