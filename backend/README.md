@@ -382,3 +382,11 @@ The advantage of using this package is when we are creating a http error using h
 
 > [!NOTE]
 > In mongoDB every noteId is in a specific format (have a certain length and only certain kind of characters are allowed) like **662fbbce91699528c78ea2fe** . If we have the same format but wrong value we get `null` and if the shape is totally incorrect like **bla** we will get `500: Internal Server Error`.
+
+## User Authentication with Express-Session
+
+Users need to sign-up for the app and every user must see only the notes belong to them. And users also need to be able to delete and update their own notes.
+
+When a user sign-up in a website we need to save them in the database. So we need another mongoose schema.
+
+We can create a new model called `user.ts` inside `models` directory.
