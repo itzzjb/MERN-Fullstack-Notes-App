@@ -2,8 +2,14 @@
 
 import { RequestHandler } from "express";
 import createHttpError from "http-errors";
+
 // We need to import the UserModel from the user.ts file
 import UserModel from "../models/user";
+
+// We need to import bcrypt to hash the password
+import bcrypt from "bcrypt";
+
+// We need to import jwt to generate the token
 
 // We need to create an interface for the signupbody.
 interface SignUpBody {
@@ -67,6 +73,10 @@ export const signup: RequestHandler<
     // Even if the database is secure, we don't want to take any chances.
     // We need to hash the password
     // This will turn the raw password into a unreadable string
+    // We are going to use bcrypt to hash the password
+    const passwordHashed = await bcrypt.hash(passwordRaw);
+
+    // We need to create a new user
   } catch (error) {
     // Calling the error handler middleware
     next(error);

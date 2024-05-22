@@ -394,3 +394,15 @@ We can create a new model called `user.ts` inside `models` directory.
 Then we need to create the endpoints for user.
 
 First, we are going to create the sign-up endpoint. So let's create `usersControllers.ts` file inside the `controllers` directory.
+
+For hashing the password, We can install the **bcrypt** package.
+
+```sh
+npm i bcrypt
+```
+
+And we also need the type package for it. This will be a dev dependency.
+
+```sh
+npm i -D @types/bcrypt
+```
