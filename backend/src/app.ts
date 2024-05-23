@@ -11,7 +11,7 @@ import express, { NextFunction, Request, Response } from "express";
 import notesRoutes from "./routes/notesRoutes";
 
 // We can import the userRoutes from the routes folder
-import userRoutes from "./routes/userRoutes";
+import usersRoutes from "./routes/usersRoutes";
 
 // We need to import morgan in order to setup it's middleware
 import morgan from "morgan";
@@ -40,7 +40,7 @@ app.use(express.json());
 app.use("/api/notes", notesRoutes);
 
 // Same as above but for the userRoutes
-app.use("/api/users", userRoutes);
+app.use("/api/users", usersRoutes);
 
 // We can also create another middleware to create our own error message when the user tries to access a route that doesn't exist
 // This also need to be below out normal routes because this is just a callback function
