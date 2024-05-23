@@ -406,3 +406,7 @@ And we also need the type package for it. This will be a dev dependency.
 ```sh
 npm i -D @types/bcrypt
 ```
+
+Then, we need to created a route to the userController. We can create a `usersRoutes.ts` file inside the `routes` directory.
+
+We have to register this new route in the `App.ts` file.

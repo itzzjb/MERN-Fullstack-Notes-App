@@ -74,7 +74,21 @@ export const signup: RequestHandler<
     // We need to hash the password
     // This will turn the raw password into a unreadable string
     // We are going to use bcrypt to hash the password
-    const passwordHashed = await bcrypt.hash(passwordRaw);
+    // First argument is the password and the second argument is the number of rounds
+    // Number of rounds is the number of times the password is hashed
+    // The more rounds the more secure the password is
+    const passwordHashed = await bcrypt.hash(passwordRaw, 10);
+
+    // We need to create a new user
+    const newUser = await UserModel.create({
+      // We need to create a new user with the username, email and password hashed
+      username: username,
+      email: email,
+      password: passwordHashed,
+    });
+
+    // We need to send the response
+    res.status(201).json(newUser);
 
     // We need to create a new user
   } catch (error) {

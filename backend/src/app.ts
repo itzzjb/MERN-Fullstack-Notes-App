@@ -7,8 +7,11 @@ import "dotenv/config";
 // NextFunction, Request, Response are types from express that are used to define the types of arguments used in the error handler
 import express, { NextFunction, Request, Response } from "express";
 
-// We can import the routes from the routes folder
+// We can import the notesRoutes from the routes folder
 import notesRoutes from "./routes/notesRoutes";
+
+// We can import the userRoutes from the routes folder
+import userRoutes from "./routes/userRoutes";
 
 // We need to import morgan in order to setup it's middleware
 import morgan from "morgan";
@@ -35,6 +38,9 @@ app.use(express.json());
 // Now we can create a middleware to parse the incoming requests
 // Any request that comes with the /api/notes will be forwarded to the notesRoutes
 app.use("/api/notes", notesRoutes);
+
+// Same as above but for the userRoutes
+app.use("/api/users", userRoutes);
 
 // We can also create another middleware to create our own error message when the user tries to access a route that doesn't exist
 // This also need to be below out normal routes because this is just a callback function
