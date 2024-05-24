@@ -440,3 +440,29 @@ If we are using JWT tokens, we need to implement a token refresh mechanism which
 > If you have your own server, it's is proffered to use sessions.
 
 Session works like, the user has some kind of keys stored in a cookie. This is easier to implement that JWT tokens.
+
+To install express-sessions you need to use the following command.
+
+```sh
+npm i express-session
+```
+
+We also need types for typescript. This is a dev dependency.
+
+```sh
+npm i -D @types/express-session
+```
+
+Our session information must be stored somewhere. There are different adaptors that we can use for that.
+
+You can find more details [here](https://www.npmjs.com/package/express-session) from npmjs.com.
+
+We are going to use the **connect-mongo** adapter. But, in the real app it is recommended to use **connect-redis** adaptor. Because Mongodb database is a remote database, it's not on our server directly. (It's on atlas server) This means it takes some time to store this information in the database.
+
+So, make it super fast we can install a redis database in our own server. But setting up redis for development is bit complicated. (So, we are going to use Mongodb for this application)
+
+We now need to install the mongo adaptor.
+
+```sh
+npm i connect-mongo
+```
