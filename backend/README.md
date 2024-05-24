@@ -410,3 +410,33 @@ npm i -D @types/bcrypt
 Then, we need to created a route to the userController. We can create a `usersRoutes.ts` file inside the `routes` directory.
 
 We have to register this new route in the `App.ts` file.
+
+When we use the sign-up endpoint first time, the `users` database collection will be created in Mongodb Atlas automatically.
+
+> [!TIP]
+> The user should be automatically logged into the account when they sign into the application. They would be needed login to the system again.
+
+We need to create a Express-Session to keep the user logged-in. For that we can use the **express-session** package.
+
+There are two popular ways to keep an user logged in.
+
+1. JWT Tokens
+2. Sessions
+
+JWT tokens is the most popular one to use. But it's quiet hard to use them.
+
+> [!CAUTION]
+> JWT tokens are **self-contained**. Which means that once an user has it, user can always log in with it. There is no way to invalidate an existing JWT token.
+
+But, invalidating a session after an user signed-in is important. For example when they want to change their password, then they should be logged out from the other places too because their password has been compromised.
+
+But when using JWT tokens this will he a problem. A usual way to handle this is to make JWT tokens live for a short amount of time. And they have to be refreshed to use again.
+
+So, if we say we changed the password. The user can logged in for the rest of the remaining time of the JWT token. Then they have to sign in again.
+
+If we are using JWT tokens, we need to implement a token refresh mechanism which can be bit complicated.
+
+> [!TIP]
+> If you have your own server, it's is proffered to use sessions.
+
+Session works like, the user has some kind of keys stored in a cookie. This is easier to implement that JWT tokens.

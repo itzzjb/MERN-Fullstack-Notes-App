@@ -51,7 +51,7 @@ export const signup: RequestHandler<
       // 409 means conflict
       throw createHttpError(
         409,
-        "Username already taken. Please chose another one or log in instead."
+        "Username already taken. Please choose another one or log in instead."
       );
     }
 
