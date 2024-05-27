@@ -466,3 +466,5 @@ We now need to install the mongo adaptor.
 ```sh
 npm i connect-mongo
 ```
+
+Connecting the Adaptor
