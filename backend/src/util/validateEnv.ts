@@ -13,4 +13,6 @@ export default cleanEnv(process.env, {
   MONGO_CONNECTION_STRING: str(),
   // Says that the value should be a port number
   PORT: port(),
+  // Add the secret key here
+  SESSION_SECRET: str(),
 });

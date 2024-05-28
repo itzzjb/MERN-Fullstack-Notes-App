@@ -87,6 +87,10 @@ export const signup: RequestHandler<
       password: passwordHashed,
     });
 
+    // Before returning the response, we need to establish a session
+    // For simple JS this is enough, but for typescript we need to define the type.
+    req.session.userId = newUser._id;
+
     // We need to send the response
     res.status(201).json(newUser);
 

@@ -441,6 +441,8 @@ If we are using JWT tokens, we need to implement a token refresh mechanism which
 
 Session works like, the user has some kind of keys stored in a cookie. This is easier to implement that JWT tokens.
 
+When we want to remove a session, we just need to
+
 To install express-sessions you need to use the following command.
 
 ```sh
@@ -467,4 +469,43 @@ We now need to install the mongo adaptor.
 npm i connect-mongo
 ```
 
-Connecting the Adaptor
+We need to define types for the session. For that we are going to create `@types` directory. We are going to create a `session.d.ts` file.
+
+The `.d.ts` files are some kinds of files that used to recognize variables and types by typescript.
+
+> [!IMPORTANT]
+> Whenever we import @types files as packages they also will be downloaded as `.d.ts` files in the `node_modules` directory.
+
+Remember that, we need to add this thought the `tsconfig.json` file. Otherwise it won't work. Here, we tell type script where the type definitions are. THis is set to `node_modules/@types` by default. Add our own one there too so typescript knows it can find types from both places.
+
+```json
+"typeRoots": ["node_modules/@types","@types"],
+```
+
+Then between the last two curly braces of the `tsconfig.json` file add the following code. We use `ts-node` to automatically restart our servers when we change the source code.
+
+```json
+    },
+    "ts-node": {
+        "files": true
+    }
+}
+```
+
+Then we need to configure the express session package in the `app.ts` file. Express-Sessions is another middleware that we have to register here.
+
+This should be declared after `app.use(express.json());` and before we declare `userRoutes` and `notesRoutes`.
+
+We can add the secret to the .env file. You can use whatever string you want.
+
+```env
+SESSION_SECRET=nucjdpeauoh32843948nfdjelajkjbcs2323497
+```
+
+Then we need to make some changes in the `validateEnv.ts` file too.
+
+```ts
+  SESSION_SECRET: str(),
+```
+
+Video -> 05:40:00
