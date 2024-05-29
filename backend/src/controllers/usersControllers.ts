@@ -100,3 +100,59 @@ export const signup: RequestHandler<
     next(error);
   }
 };
+
+// Crate a new interface for the login body
+interface LoginBody {
+  username?: string;
+  password?: string;
+}
+
+// We need to create a function that will handle the login route
+export const login: RequestHandler<
+  unknown,
+  unknown,
+  LoginBody,
+  unknown
+> = async (req, res, next) => {
+  // We need to extract the inputs from the body.
+  const username = req.body.username;
+  const password = req.body.password;
+
+  try {
+    // Now we need to check if the username and password are present
+    if (!username || !password) {
+      // We need to throw an error
+      throw createHttpError(400, "Parameters missing");
+    }
+
+    // Before checking if the passwords match, we need to figure out if the user exists
+    // Since the user is signing in, we need to send the user's email address and password
+    // By default, the password and emails fields are excluded from the query
+    // We can use select to include password and email fields
+    const user = await UserModel.findOne({ username: username })
+      .select("+password +email")
+      .exec();
+
+    // We need to throw an error if the user is not found
+    if (!user) {
+      throw createHttpError(401, "Invalid credentials");
+    }
+
+    // We need to compare the password with the hashed password
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    // We need to throw an error if the password is incorrect
+    if (!passwordMatch) {
+      throw createHttpError(401, "Invalid credentials");
+    }
+
+    // Now we need to establish a session
+    req.session.userId = user._id;
+
+    // We need to send the response
+    res.status(201).json(user);
+  } catch (error) {
+    // Calling the error handler middleware
+    next(error);
+  }
+};
