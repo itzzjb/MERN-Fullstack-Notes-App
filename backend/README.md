@@ -507,5 +507,3 @@ Then we need to make some changes in the `validateEnv.ts` file too.
 ```ts
   SESSION_SECRET: str(),
 ```
-
-Video -> 05:40:00
