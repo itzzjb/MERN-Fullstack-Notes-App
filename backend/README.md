@@ -508,4 +508,4 @@ Then we need to make some changes in the `validateEnv.ts` file too.
   SESSION_SECRET: str(),
 ```
 
-We need to create the login controller in the `usersControllers.ts` file.
+We need to create the login controller in the `usersControllers.ts` file and login routes in `usersRoutes.ts` file.

@@ -10,6 +10,9 @@ const router = express.Router();
 router.post("/signup", UserController.signup);
 
 // Create a POST route for the login endpoint.
+router.post("/login", UserController.login);
+
+// Create a POST route for the login endpoint.
 // router.post("/login", UserController.login);
 
 // We need to export the router.
