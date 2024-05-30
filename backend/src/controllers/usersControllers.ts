@@ -11,6 +11,32 @@ import bcrypt from "bcrypt";
 
 // We need to import jwt to generate the token
 
+// We need to create a function to get the user details when the user is logged in
+export const getAuthenticatedUser: RequestHandler = async (req, res, next) => {
+  // We need to get the user id from the request
+  const authenticatedUserId = req.session.userId;
+
+  try {
+    // We need to check if the user is logged in
+    if (!authenticatedUserId) {
+      // We need to throw an error if the user is not logged in
+      throw createHttpError(401, "User not authenticated");
+    }
+
+    // We need to find the logged in user from the database
+    const user = await UserModel.findById(authenticatedUserId)
+      // You don't need to include the password in the response
+      .select("+email")
+      .exec();
+
+    // We need to send the user data back to the client
+    res.status(200).json(user);
+  } catch (error) {
+    // We need to create a new HttpError and pass it to the next function
+    next(createHttpError(500, "An error occurred while getting the user"));
+  }
+};
+
 // We need to create an interface for the signupbody.
 interface SignUpBody {
   // We need to set all of this values optional because we are not sure if the users will send this data

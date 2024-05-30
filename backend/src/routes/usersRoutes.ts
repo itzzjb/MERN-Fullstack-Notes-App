@@ -6,6 +6,9 @@ import * as UserController from "../controllers/usersControllers";
 // Create a router instance.
 const router = express.Router();
 
+// Create a GET route for the authenticated user endpoint.
+router.get("/", UserController.getAuthenticatedUser);
+
 // Create a POST route for the signup endpoint.
 router.post("/signup", UserController.signup);
 
