@@ -510,4 +510,4 @@ Then we need to make some changes in the `validateEnv.ts` file too.
 
 We need to create the login controller in the `usersControllers.ts` file and login routes in `usersRoutes.ts` file.
 
-We need to create another endpoint called `getAuthenticatedUser` in `usersControllers.ts` file to get user details when logged in and the related route in the `userRoutes.ts` file.
+We need to create more endpoints called `getAuthenticatedUser` in `usersControllers.ts` file and the related route in the `userRoutes.ts` file to get user details when logged in and logged out as a user.

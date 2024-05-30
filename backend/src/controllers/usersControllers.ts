@@ -182,3 +182,19 @@ export const login: RequestHandler<
     next(error);
   }
 };
+
+// We need to create a function that will handle the logout route
+// We don't need async here because we are not going to use await
+export const logout: RequestHandler = (req, res, next) => {
+  // We need to destroy the session
+  // This function doesn't return a promise, so we need to use a callback function
+  req.session.destroy((error) => {
+    if (error) {
+      // We need to throw an error if the session is not destroyed
+      next(createHttpError(500, "An error occurred while logging out"));
+    }
+
+    // We need to send the response
+    res.status(200).json({ message: "Logged out successfully" });
+  });
+};

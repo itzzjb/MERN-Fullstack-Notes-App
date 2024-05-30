@@ -15,8 +15,8 @@ router.post("/signup", UserController.signup);
 // Create a POST route for the login endpoint.
 router.post("/login", UserController.login);
 
-// Create a POST route for the login endpoint.
-// router.post("/login", UserController.login);
+// Create a POST route for the logout endpoint.
+router.post("/logout", UserController.logout);
 
 // We need to export the router.
 export default router;
