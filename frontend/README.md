@@ -371,3 +371,5 @@ But, when we actually deploy this onto a server, this might take a moment.
 
 > [!TIP]
 > We can add a spinner to indicate loading and we can also add a text if error happens like loading went wrong.
+
+## User Authentication FrontEnd
