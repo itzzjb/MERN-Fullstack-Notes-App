@@ -373,3 +373,7 @@ But, when we actually deploy this onto a server, this might take a moment.
 > We can add a spinner to indicate loading and we can also add a text if error happens like loading went wrong.
 
 ## User Authentication FrontEnd
+
+We are going to create a new file called `user.ts` in `models` directory.
+
+Then we need to define the all the endpoints in `notes.api.ts` file in the `network` directory.
