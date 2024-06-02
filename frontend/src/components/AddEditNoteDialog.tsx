@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { NoteInput } from "../network/notesApi";
 // Importing all the functions from the notesApi.ts file
 import * as NotesApi from "../network/notesApi";
+import TextInputField from "./form/TextInputField";
 
 // We need to add an interface because we need to pass some data here
 interface AddEditNoteDialogProps {
@@ -109,55 +110,26 @@ const AddEditNoteDialog = ({
         {/* We are passing the onSubmit function to the Form component. This is the function that we created above */}
         {/* handleSubmit will connect our form to the react-hook-forms and after some background tasks it will call our own onSubmit function */}
         <Form id="addEditNoteForm" onSubmit={handleSubmit(onSubmit)}>
-          {/* First, we need a Form.Group for the Label */}
-          {/* mb-3 is a bootstrap library class that adds margin bottom of 3px */}
-          <Form.Group className="mb-3">
-            <Form.Label>Title</Form.Label>
-            {/* We use the Form.Control as the input field for the title.  */}
-            {/* This is a self closing tag, and we only pass properties to this tag */}
-            {/* We need to define the type of the input field as text and we can place a placeholder too */}
-            {/* We need to connect each form input field with the register function from react-hook-forms */}
-            {/* ... means what ever comes after this will be destructed to single components */}
-            <Form.Control
-              type="text"
-              placeholder="Enter title"
-              // We need to use a isInvalid property to show the error message only when the input field is invalid
-              // If errors.title is not null or undefined, then isInvalid will be true
-              // If errors.title is defined, then isInvalid will be false
-              // The feedback will be displayed only when isInvalid is true
-              isInvalid={!!errors.title}
-              // The input field title will be connected to the NoteInput.title field
-              // We can also set validation rules here
-              {...register("title", { required: "Title is required" })}
-            />
-            {/* We need a way to show the above error message to the user. We can do this by adding a Form.Control.Feedback component */}
-            {/* They are displayed as small text under the input fields. */}
-            {/* Invalid will displayed in red and valid will be displayed in green */}
-            <Form.Control.Feedback type="invalid">
-              {/* We are getting the errors from the errors property in useForm of react-hook-forms */}
-              {/* We are using the title key to get the title error */}
-              {/* Because of ? (safe call operator) we will only use this message value if the title is not-defined or null*/}
-              {/* The message that displayed will be the text we defined up "Title is required" */}
-              {errors.title?.message}
-            </Form.Control.Feedback>
-          </Form.Group>
-
-          {/* Then, another Form.Group for the Text */}
-          <Form.Group className="mb-3">
-            <Form.Label>Text</Form.Label>
-            {/* We use as="textarea" to get a large text area to input our text */}
-            {/* We need to add rows={5} to define a size for this text area input field */}
-            {/* We need to connect each form input field with the register function from react-hook-forms */}
-            {/* ... means what ever comes after this will be destructed to single components */}
-            <Form.Control
-              as="textarea"
-              rows={5}
-              placeholder="Enter text"
-              // The input field text will be connected to the NoteInput.text field
-              // We don't need to set any validation rules here because text is optional
-              {...register("text")}
-            />
-          </Form.Group>
+          {/* Using TextInputFields created in TextInputField.tsx to create the input fields. */}
+          {/* Creating the title input */}
+          <TextInputField
+            name="title"
+            label="Title"
+            type="text"
+            placeholder="Title"
+            register={register}
+            registerOptions={{ required: "Required" }}
+            error={errors.title}
+          />
+          {/* Creating the text area input */}
+          <TextInputField
+            name="text"
+            label="Text"
+            as="textarea"
+            rows={5}
+            placeholder="Text"
+            register={register}
+          />
         </Form>
       </Modal.Body>
       {/* We can have the save button in the footer of the Modal */}
