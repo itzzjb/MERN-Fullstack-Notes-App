@@ -377,3 +377,5 @@ But, when we actually deploy this onto a server, this might take a moment.
 We are going to create a new file called `user.ts` in `models` directory.
 
 Then we need to define the all the endpoints in `notes.api.ts` file in the `network` directory.
+
+Now, we need to create new a new `form` directory inside `components` directory. Inside that we are going to create a new file called `TextInputField.tsx`.
