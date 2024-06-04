@@ -23,6 +23,7 @@ import AddEditNoteDialog from "./components/AddEditNoteDialog";
 
 // Need to import the Plus icon from the react-icons/fa file
 import { FaPlus } from "react-icons/fa";
+import SignUpModal from "./components/SignUpModel";
 
 function App() {
   // Here we want something to save the current state of the application
@@ -266,6 +267,11 @@ function App() {
             setNoteToEdit(null);
           }}
         />
+      )}
+
+      {/* Using the SignUpModel here */}
+      {true && (
+        <SignUpModal onDismiss={() => {}} onSignUpSuccessful={() => {}} />
       )}
 
       {/* There is another way to show the component conditionally in the screen */}

@@ -381,3 +381,5 @@ Then we need to define the all the endpoints in `notes.api.ts` file in the `netw
 Now, we need to create new a new `form` directory inside `components` directory. Inside that we are going to create a new file called `TextInputField.tsx`.
 
 Now, we can create a new file called `SignUpModel.tsx` in the `components` directory.
+
+We would need to create the UI model for the SignUp button in the `App.tsx` file.

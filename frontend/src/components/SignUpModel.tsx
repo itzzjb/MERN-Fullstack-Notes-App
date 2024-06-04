@@ -26,18 +26,14 @@ const SignUpModal
             // We need to call the signUp method from the NotesApi
             const user = await NotesApi.signUp(credentials);
             // We need to call the onSignUpSuccessful callback function and pass the user object to the function
-            onSignUpSuccessful(user);
-
-            // 06:16:42
-
-        
+            onSignUpSuccessful(user);    
        } catch (error) {
             alert(error);
             console.log(error);
        }
     };
 
-    return (  
+    return (          
     );
 }
  
