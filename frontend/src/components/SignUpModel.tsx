@@ -5,7 +5,7 @@ import { User } from "../models/user";
 import { SignUpCredentials } from "../network/notesApi";
 // Importing all from NotesApi
 import * as NotesApi from "../network/notesApi";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Form, Modal } from "react-bootstrap";
 import TextInputField from "./form/TextInputField";
 
 // First we need to create the interface for the SignUpModelProps
@@ -28,9 +28,9 @@ const SignUpModal = ({ onDismiss, onSignUpSuccessful }: SignUpModelProps) => {
   async function onSubmit(credentials: SignUpCredentials) {
     try {
       // We need to call the signUp method from the NotesApi
-      const user = await NotesApi.signUp(credentials);
+      const newUser = await NotesApi.signUp(credentials);
       // We need to call the onSignUpSuccessful callback function and pass the user object to the function
-      onSignUpSuccessful(user);
+      onSignUpSuccessful(newUser);
     } catch (error) {
       alert(error);
       console.log(error);
@@ -45,7 +45,7 @@ const SignUpModal = ({ onDismiss, onSignUpSuccessful }: SignUpModelProps) => {
         <Modal.Title>Sign Up</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           {/* We are using the TextInputField */}
           <TextInputField
             name="username"
@@ -81,7 +81,7 @@ const SignUpModal = ({ onDismiss, onSignUpSuccessful }: SignUpModelProps) => {
             errors={errors.password}
           />
           {/* Submit button and Check the error : 06:22:38 */}
-        </form>
+        </Form>
       </Modal.Body>
     </Modal>
   );

@@ -1,5 +1,5 @@
 import { Note, Note as NoteModel } from "../models/notes";
-import { User as UserModel } from "../models/user";
+import { User } from "../models/user";
 
 // We need to create a wrapper around the fetch function to throw some errors if the response is not ok
 // We don't have to export the fetchData function because we are not using it in any other file
@@ -27,7 +27,7 @@ async function fetchData(input: RequestInfo, init?: RequestInit) {
 // We need to create a function to getLoggedInUser
 // This function will return a promise that will resolve to a user object
 // All async functions return a promise
-export async function getLoggedInUser(): Promise<UserModel> {
+export async function getLoggedInUser(): Promise<User> {
   // We can use the get logged in user endpoint to get the logged in user
   // We only need to set the /api/user because we are using a proxy in the package.json file
   // We are using the above fetchData function to make the request so the error handling will be done there
@@ -49,9 +49,7 @@ export interface SignUpCredentials {
 // We need to create a function to sign up a user
 // We are going to export this function so we can use it in other files
 // This function requires a credentials object in the type of SignUpCredentials as an argument and it will return a promise that will resolve to a user object
-export async function signUp(
-  credentials: SignUpCredentials
-): Promise<UserModel> {
+export async function signUp(credentials: SignUpCredentials): Promise<User> {
   // We are using the sign up endpoint to sign up a user
   // We are using the above fetchData function to make the request so the error handling will be done there
   const response = await fetchData("/api/users/signup", {
@@ -68,14 +66,14 @@ export async function signUp(
 // We need an interface to define LoginCredentials
 // We are going to export this interface so we can use it in other files
 export interface LoginCredentials {
-  email: string;
+  username: string;
   password: string;
 }
 
 // We need to create a function to log in a user
 // We are going to export this function so we can use it in other files
 // This function requires a credentials object in the type of LoginCredentials as an argument and it will return a promise that will resolve to a user object
-export async function logIn(credentials: LoginCredentials): Promise<UserModel> {
+export async function logIn(credentials: LoginCredentials): Promise<User> {
   // We are using the log in endpoint to log in a user
   // We are using the above fetchData function to make the request so the error handling will be done there
   const response = await fetchData("/api/users/login", {
