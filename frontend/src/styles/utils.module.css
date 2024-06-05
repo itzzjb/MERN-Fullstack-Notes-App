@@ -14,3 +14,7 @@ in different different components of the application */
   justify-content: center;
   gap: 4px;
 }
+
+.width100 {
+  width: 100%;
+}

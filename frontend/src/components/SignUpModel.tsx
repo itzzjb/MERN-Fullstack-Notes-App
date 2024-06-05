@@ -7,6 +7,7 @@ import { SignUpCredentials } from "../network/notesApi";
 import * as NotesApi from "../network/notesApi";
 import { Button, Form, Modal } from "react-bootstrap";
 import TextInputField from "./form/TextInputField";
+import styleUtils from "../styles/utils.module.css";
 
 // First we need to create the interface for the SignUpModelProps
 interface SignUpModelProps {
@@ -46,7 +47,9 @@ const SignUpModal = ({ onDismiss, onSignUpSuccessful }: SignUpModelProps) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          {/* We are using the TextInputField */}
+          {/* We are using the TextInputField we created in TextInputField.tsx */}
+
+          {/* Username field */}
           <TextInputField
             name="username"
             label="Username"
@@ -58,6 +61,8 @@ const SignUpModal = ({ onDismiss, onSignUpSuccessful }: SignUpModelProps) => {
             }}
             errors={errors.username}
           />
+
+          {/* Email field */}
           <TextInputField
             name="email"
             label="Email"
@@ -69,6 +74,8 @@ const SignUpModal = ({ onDismiss, onSignUpSuccessful }: SignUpModelProps) => {
             }}
             errors={errors.email}
           />
+
+          {/* Password field */}
           <TextInputField
             name="password"
             label="Password"
@@ -80,7 +87,20 @@ const SignUpModal = ({ onDismiss, onSignUpSuccessful }: SignUpModelProps) => {
             }}
             errors={errors.password}
           />
-          {/* Submit button and Check the error : 06:22:38 */}
+
+          {/* Submit button */}
+          {/* When we add type to submit the browser recognizes that this is a form submit button */}
+          {/* We don't need to specify an ID like before because we have put the button inside the form */}
+          {/* When we click the button it will automatically trigger the onSubmit callback function */}
+          {/* disable is used to temporarily disable the button when the form is submitting */}
+          {/* We are going to make the width of the button 100% but adding a css in utils.module.css file */}
+          <Button
+            type="submit"
+            disabled={isSubmitting}
+            className={styleUtils.width100}
+          >
+            Sign Up
+          </Button>
         </Form>
       </Modal.Body>
     </Modal>
