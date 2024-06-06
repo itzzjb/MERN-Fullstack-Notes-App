@@ -81,7 +81,7 @@ const LoginModal = ({ onDismiss, onLoginSuccessful }: LoginModalProps) => {
             disabled={isSubmitting}
             className={styleUtils.width100}
           >
-            Sign Up
+            Login
           </Button>
         </Form>
       </Modal.Body>
