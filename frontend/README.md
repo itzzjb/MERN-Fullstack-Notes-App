@@ -383,3 +383,5 @@ Now, we need to create new a new `form` directory inside `components` directory.
 Now, we can create a new file called `SignUpModel.tsx` in the `components` directory.
 
 We would need to create the UI model for the SignUp button in the `App.tsx` file.
+
+Now, let's also create the login modal in a new file called `LoginModal.tsx` in the `components` directory.

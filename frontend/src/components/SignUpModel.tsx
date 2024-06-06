@@ -23,7 +23,7 @@ const SignUpModal = ({ onDismiss, onSignUpSuccessful }: SignUpModelProps) => {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<User>();
+  } = useForm<SignUpCredentials>();
 
   // We need to create the function that actually handles the form submission and calling our API endpoint
   async function onSubmit(credentials: SignUpCredentials) {
