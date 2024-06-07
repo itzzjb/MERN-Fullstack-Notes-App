@@ -382,6 +382,14 @@ Now, we need to create new a new `form` directory inside `components` directory.
 
 Now, we can create a new file called `SignUpModel.tsx` in the `components` directory.
 
-We would need to create the UI model for the SignUp button in the `App.tsx` file.
-
 Now, let's also create the login modal in a new file called `LoginModal.tsx` in the `components` directory.
+
+We would need to create the UI models for the SignUp Form and Login Form in the `App.tsx` file.
+
+## Setting up the Navbar
+
+For the navbar we are going to use a react-component **Navbar**.
+
+You can find more details about navbar react-component [here](https://react-bootstrap.netlify.app/docs/components/navbar/).
+
+We are going to create a another file in the `components` directory called `NavBar.tsx`. We are using a uppercase "B" here
