@@ -9,8 +9,6 @@ import * as NotesApi from "../network/notesApi";
 interface NavBarLoggedInViewProps {
   // This doesn't need to be nullable because we are sure that the user is logged in
   user: User;
-  // When we click the logout button we want to logout the user
-  // We need to notify the App.tsx file so it can remove the user data from the state
   onLogoutSuccessful: () => void;
 }
 
