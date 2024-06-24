@@ -1,3 +1,4 @@
+import { Container, Nav, Navbar } from "react-bootstrap";
 import { User } from "../models/user";
 
 // As usual first we need the props interface
@@ -11,7 +12,36 @@ interface NavBarProps {
   // When we click the login button we want to show the login form
   onLoginClicked: () => void;
   // When we click the logout button we want to logout the user
+  // We need to notify the App.tsx file so it can remove the user data from the state
   onLogoutSuccessful: () => void;
-
-  title: string;
 }
+
+// Now we need to create the NavBar component
+const NavBar = ({
+  loggedInUser,
+  onSignClicked,
+  onLoginClicked,
+  onLogoutSuccessful,
+}: NavBarProps) => {
+  return (
+    // We need to create the NavBar return statement here
+    // We are using the Navbar component from react-bootstrap
+    // bg="primary" is used to set the background color of the navbar to a default blue color
+    // variant="dark" is used to set the text color of the navbar to white
+    // expand="lg" is used to set the navbar to expand on large screens from the mobile view
+    // what size depends on how many buttons we have in the navbar
+    // we will get a dropdown menu in the mobile view
+    // sticky="top" is used to make the navbar sticky to the top of the page (always visible even when scrolled downed)
+    <Navbar bg="primary" variant="dark" expand="lg" sticky="top">
+      {/* We can use the Container to add some padding */}
+      <Container>
+        {/* Navbar.brand adds a text or image to the left side. */}
+        {/* Usually you will be navigated to the home screen when you click this button */}
+        <Navbar.Brand href="/">NotesHub</Navbar.Brand>
+      </Container>
+    </Navbar>
+  );
+};
+
+// We need to export the NavBar component
+export default NavBar;

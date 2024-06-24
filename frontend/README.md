@@ -393,3 +393,9 @@ For the navbar we are going to use a react-component **Navbar**.
 You can find more details about navbar react-component [here](https://react-bootstrap.netlify.app/docs/components/navbar/).
 
 We are going to create a another file in the `components` directory called `NavBar.tsx`. We are using a uppercase "B" here
+
+We need to show different content in the Navbar depending on whether the User is logged in or logged out.
+
+If we are logged out we need to show a signup and a login And if we are logged in we need to show the username and the logged out button.
+
+We can extract them to separate files to better organization. We can create two new files in the `components` directory called `NavBarLoggedInView.tsx` and `NavBarLoggedOutView.tsx`.
