@@ -1,5 +1,7 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { User } from "../models/user";
+import NavBarLoggedInView from "./NavBarLoggedInView";
+import NavBarLoggedOutView from "./NavbarLoggedOutView";
 
 // As usual first we need the props interface
 interface NavBarProps {
@@ -38,6 +40,29 @@ const NavBar = ({
         {/* Navbar.brand adds a text or image to the left side. */}
         {/* Usually you will be navigated to the home screen when you click this button */}
         <Navbar.Brand href="/">NotesHub</Navbar.Brand>
+        {/* We need to add a toggle button for the mobile view */}
+        <Navbar.Toggle aria-controls="main-navbar" />
+        {/* We need to add a collapsible content */}
+        {/* We need to ass the same id as the toggle here.*/}
+        <Navbar.Collapse id="main-navbar">
+          {/* We need to add the Nav component from react-bootstrap */}
+          {/* We need to add some margin to the right side of the navbar items */}
+          <Nav className="ml-auto">
+            {/* Here we need to show our NavBarLoggedInView or NavBarLoggedOutView */}
+            {/* We need to  */}
+            {loggedInUser ? (
+              <NavBarLoggedInView
+                user={loggedInUser}
+                onLogoutSuccessful={onLogoutSuccessful}
+              />
+            ) : (
+              <NavBarLoggedOutView
+                onLoginClicked={onLoginClicked}
+                onSignUpClicked={onSignClicked}
+              />
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
